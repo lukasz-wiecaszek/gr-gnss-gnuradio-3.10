@@ -1,0 +1,47 @@
+subframe id: 5, tow: 61435
+sv_clock_parameters:
+	svid:        20
+	IODC:        27
+	t_oc:        374400
+	week_no:     710
+	SV_accuracy: 0
+	SV_health:   0
+	T_GD:        -7.916242e-09
+	a_f0:        +9.131106e-05
+	a_f1:        +1.818989e-12
+	a_f2:        +0.000000e+00
+
+subframe id: 1, tow: 61436 | WN: 710, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 27, T_GD: -17, t_oc: 23400, a_f0: 196089, a_f1: 16, a_f2: 0
+subframe id: 2, tow: 61437 | IODE: 27, C_RS: 533, DELTA_N: 15814, M_0: 571850010, C_UC: 447, e: 47354600, C_US: 3398, SQRT_A: 2702056369, t_oe: 23400, AODO: 29
+ephemeris:
+	svid:       20
+	IODE:       27/27
+	t_oe:       374400
+	e:          +5.512801e-03 [dimensionless]
+	sqrt_a:     +5.153764e+03 [m^1/2]
+	M_0:        +8.365697e-01 [rad]
+	delta_n:    +5.648092e-09 [rad/s]
+	OMEGA_0:    +5.310839e-01 [rad]
+	i_0:        +9.286151e-01 [rad]
+	omega:      +1.297007e+00 [rad]
+	dOMEGA_dt:  -8.701791e-09 [rad/s]
+	dI_dt:      -1.471490e-10 [rad/s]
+correction terms:
+	orbit radius:         (+2.403750e+02, +1.665625e+01) [m]
+	argument of latitude: (+8.326024e-07, +6.329268e-06) [rad]
+	angle of inclination: (-8.940697e-08, +2.793968e-08) [rad]
+
+
+subframe id: 3, tow: 61438 | C_IC: -48, OMEGA_0: 363030542, C_IS: 15, i_0: 634769026, C_RC: 7692, omega: 886588879, dOMEGA_dt: -24364, IODE: 27, dI_dt: -412
+subframe id: 4, tow: 61439
+subframe id: 5, tow: 61440
+subframe id: 1, tow: 61441 | WN: 710, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 27, T_GD: -17, t_oc: 23400, a_f0: 196089, a_f1: 16, a_f2: 0
+subframe id: 2, tow: 61442 | IODE: 27, C_RS: 533, DELTA_N: 15814, M_0: 571850010, C_UC: 447, e: 47354600, C_US: 3398, SQRT_A: 2702056369, t_oe: 23400, AODO: 29
+subframe id: 3, tow: 61443 | C_IC: -48, OMEGA_0: 363030542, C_IS: 15, i_0: 634769026, C_RC: 7692, omega: 886588879, dOMEGA_dt: -24364, IODE: 27, dI_dt: -412
+subframe id: 4, tow: 61444
+subframe id: 5, tow: 61445
+subframe id: 1, tow: 61446 | WN: 710, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 27, T_GD: -17, t_oc: 23400, a_f0: 196089, a_f1: 16, a_f2: 0
+subframe id: 2, tow: 61447 | IODE: 27, C_RS: 533, DELTA_N: 15814, M_0: 571850010, C_UC: 447, e: 47354600, C_US: 3398, SQRT_A: 2702056369, t_oe: 23400, AODO: 29
+subframe id: 3, tow: 61448 | C_IC: -48, OMEGA_0: 363030542, C_IS: 15, i_0: 634769026, C_RC: 7692, omega: 886588879, dOMEGA_dt: -24364, IODE: 27, dI_dt: -412
+subframe id: 4, tow: 61449
+subframe id: 5, tow: 61450

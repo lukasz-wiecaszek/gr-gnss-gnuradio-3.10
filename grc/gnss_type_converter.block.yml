@@ -1,0 +1,57 @@
+id: gnss_type_converter
+label: Type Converter
+category: '[GNSS]'
+
+templates:
+  imports: from gnuradio import gnss
+  make: gnss.${itype}_to_${otype}(${vlen})
+
+#  Make one 'parameters' list entry for every parameter you want settable from the GUI.
+#     Keys include:
+#     * id (makes the value accessible as keyname, e.g. in the make entry)
+#     * label (label shown in the GUI)
+#     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#     * default
+parameters:
+- id: vlen
+  label: Vec Length
+  dtype: int
+  default: '1'
+  hide: part
+
+- id: itype
+  label: Input Type
+  dtype: enum
+  options: [f32, f64, fc32, fc64]
+  option_labels: [float, double, gr_complex, gr_complexd]
+  option_attributes:
+    io: [f32, f64, fc32, fc64]
+
+- id: otype
+  label: Output Type
+  dtype: enum
+  options: [f32, f64, fc32, fc64]
+  option_labels: [float, double, gr_complex, gr_complexd]
+  option_attributes:
+    io: [f32, f64, fc32, fc64]
+
+#  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
+#  Keys include:
+#      * label (an identifier for the GUI)
+#      * domain (optional - stream or message. Default is stream)
+#      * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#      * vlen (optional - data stream vector length. Default is 1)
+#      * optional (optional - set to 1 for optional inputs. Default is 0)
+inputs:
+- label: in
+  dtype: ${itype.io}
+  vlen: ${vlen}
+
+outputs:
+- label: out
+  dtype: ${otype.io}
+  vlen: ${vlen}
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

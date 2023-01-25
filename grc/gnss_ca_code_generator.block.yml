@@ -1,0 +1,59 @@
+id: gnss_ca_code_generator
+label: CA Code Generator
+category: '[GNSS]'
+
+templates:
+  imports: from gnuradio import gnss
+  make: gnss.ca_code_generator_${type.suffix}(${vlen}, ${sampling_freq}, ${svid}, ${domain})
+
+#  Make one 'parameters' list entry for every parameter you want settable from the GUI.
+#     Keys include:
+#     * id (makes the value accessible as keyname, e.g. in the make entry)
+#     * label (label shown in the GUI)
+#     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#     * default
+parameters:
+- id: vlen
+  label: Vec Length
+  dtype: int
+  default: '1'
+
+- id: type
+  label: Output Type
+  dtype: enum
+  options: [s8, s16, s32, f32, f64, fc32, fc64]
+  option_labels: [int8_t, int16_t, int32_t, float, double, gr_complex, gr_complexd]
+  option_attributes:
+    suffix: [s8, s16, s32, f32, f64, fc32, fc64]
+
+- id: sampling_freq
+  label: Sample Rate
+  dtype: real
+  default: '1023000'
+
+- id: svid
+  label: SVID
+  dtype: int
+
+- id: domain
+  label: Domain
+  dtype: enum
+  options: [gnss.CA_CODE_DOMAIN_TIME, gnss.CA_CODE_DOMAIN_FREQUENCY, gnss.CA_CODE_DOMAIN_FREQUENCY_CONJUGATE]
+  option_labels: [time, frequency, ~frequency]
+  default: gnss.CA_CODE_DOMAIN_TIME
+
+#  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
+#  Keys include:
+#      * label (an identifier for the GUI)
+#      * domain (optional - stream or message. Default is stream)
+#      * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#      * vlen (optional - data stream vector length. Default is 1)
+#      * optional (optional - set to 1 for optional inputs. Default is 0)
+outputs:
+- label: out
+  dtype: ${type}
+  vlen: ${vlen}
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

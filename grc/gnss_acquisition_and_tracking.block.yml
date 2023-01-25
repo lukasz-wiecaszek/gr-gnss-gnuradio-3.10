@@ -1,0 +1,80 @@
+id: gnss_acquisition_and_tracking
+label: Acquisition And Tracking
+category: '[GNSS]'
+
+templates:
+  imports: from gnuradio import gnss
+  make: |-
+    gnss.acquisition_and_tracking(${sampling_freq}, ${dll_bw_coarse}, ${pll_bw_coarse}, ${dll_bw_fine}, ${pll_bw_fine})
+    self.${id}.set_acq_params(${navigation_system}, ${identifier})
+
+callbacks:
+- self.${id}.set_acq_params(${navigation_system}, ${identifier})
+
+#  Make one 'parameters' list entry for every parameter you want settable from the GUI.
+#     Keys include:
+#     * id (makes the value accessible as keyname, e.g. in the make entry)
+#     * label (label shown in the GUI)
+#     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#     * default
+parameters:
+- id: sampling_freq
+  label: Sample Rate
+  dtype: real
+
+- id: dll_bw_coarse
+  label: DLL coarse filter bandwidth [Hz]
+  dtype: real
+
+- id: pll_bw_coarse
+  label: PLL coarse filter bandwidth [Hz]
+  dtype: real
+
+- id: dll_bw_fine
+  label: DLL fine filter bandwidth [Hz]
+  dtype: real
+
+- id: pll_bw_fine
+  label: PLL fine filter bandwidth [Hz]
+  dtype: real
+
+- id: navigation_system
+  label: Navigation System
+  dtype: enum
+  options: [gnss.NAVIGATION_SYSTEM_UNDEFINED, gnss.NAVIGATION_SYSTEM_GPS, gnss.NAVIGATION_SYSTEM_GALILEO, gnss.NAVIGATION_SYSTEM_GLONASS]
+  option_labels: [UNDEFINED, GPS, GALILEO, GLONASS]
+  default: gnss.NAVIGATION_SYSTEM_UNDEFINED
+
+- id: identifier
+  label: Id (e.g. gps svid)
+  dtype: int
+  default: -1
+
+- id: debug_port
+  label: Debug port
+  dtype: bool
+  options: [False, True]
+  option_labels: [OFF, ON]
+  default: False
+
+#  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
+#  Keys include:
+#      * label (an identifier for the GUI)
+#      * domain (optional - stream or message. Default is stream)
+#      * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#      * vlen (optional - data stream vector length. Default is 1)
+#      * optional (optional - set to 1 for optional inputs. Default is 0)
+inputs:
+- label: in
+  dtype: fc32
+  vlen: 1
+
+outputs:
+- label: out
+  dtype: fc64
+  vlen: 1
+  multiplicity: ${1 if (debug_port == False) else 2}
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

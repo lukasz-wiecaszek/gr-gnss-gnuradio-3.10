@@ -1,0 +1,185 @@
+id: gnss_pseudoranges_decoder
+label: Pseudoranges Decoder
+category: '[GNSS]'
+
+templates:
+  imports: from gnuradio import gnss
+  make: |-
+    gnss.pseudoranges_decoder(${add_velocity_outputs})
+    self.${id}.set_acq_params(0, ${navigation_system0}, ${identifier0})
+    self.${id}.set_acq_params(1, ${navigation_system1}, ${identifier1})
+    self.${id}.set_acq_params(2, ${navigation_system2}, ${identifier2})
+    self.${id}.set_acq_params(3, ${navigation_system3}, ${identifier3})
+    self.${id}.set_acq_params(4, ${navigation_system4}, ${identifier4})
+    self.${id}.set_acq_params(5, ${navigation_system5}, ${identifier5})
+    self.${id}.set_acq_params(6, ${navigation_system6}, ${identifier6})
+    self.${id}.set_acq_params(7, ${navigation_system7}, ${identifier7})
+
+#  Make one 'parameters' list entry for every parameter you want settable from the GUI.
+#     Keys include:
+#     * id (makes the value accessible as keyname, e.g. in the make entry)
+#     * label (label shown in the GUI)
+#     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#     * default
+parameters:
+- id: num_inputs
+  label: Num Inputs
+  dtype: int
+  default: '1'
+  hide: part
+
+- id: add_velocity_outputs
+  label: Add Velocity Outputs
+  dtype: bool
+  options: [False, True]
+  option_labels: [OFF, ON]
+  default: False
+
+- id: navigation_system0
+  label: Navigation System
+  dtype: enum
+  options: [gnss.NAVIGATION_SYSTEM_UNDEFINED, gnss.NAVIGATION_SYSTEM_GPS, gnss.NAVIGATION_SYSTEM_GALILEO, gnss.NAVIGATION_SYSTEM_GLONASS]
+  option_labels: [UNDEFINED, GPS, GALILEO, GLONASS]
+  default: gnss.NAVIGATION_SYSTEM_UNDEFINED
+  hide: ${'none' if (num_inputs > 0) else 'all'}
+
+- id: identifier0
+  label: Id (e.g. gps svid)
+  dtype: int
+  default: -1
+  hide: ${'none' if (num_inputs > 0) else 'all'}
+
+- id: navigation_system1
+  label: Navigation System
+  dtype: enum
+  options: [gnss.NAVIGATION_SYSTEM_UNDEFINED, gnss.NAVIGATION_SYSTEM_GPS, gnss.NAVIGATION_SYSTEM_GALILEO, gnss.NAVIGATION_SYSTEM_GLONASS]
+  option_labels: [UNDEFINED, GPS, GALILEO, GLONASS]
+  default: gnss.NAVIGATION_SYSTEM_UNDEFINED
+  hide: ${'none' if (num_inputs > 1) else 'all'}
+
+- id: identifier1
+  label: Id (e.g. gps svid)
+  dtype: int
+  default: -1
+  hide: ${'none' if (num_inputs > 1) else 'all'}
+
+- id: navigation_system2
+  label: Navigation System
+  dtype: enum
+  options: [gnss.NAVIGATION_SYSTEM_UNDEFINED, gnss.NAVIGATION_SYSTEM_GPS, gnss.NAVIGATION_SYSTEM_GALILEO, gnss.NAVIGATION_SYSTEM_GLONASS]
+  option_labels: [UNDEFINED, GPS, GALILEO, GLONASS]
+  default: gnss.NAVIGATION_SYSTEM_UNDEFINED
+  hide: ${'none' if (num_inputs > 2) else 'all'}
+
+- id: identifier2
+  label: Id (e.g. gps svid)
+  dtype: int
+  default: -1
+  hide: ${'none' if (num_inputs > 2) else 'all'}
+
+- id: navigation_system3
+  label: Navigation System
+  dtype: enum
+  options: [gnss.NAVIGATION_SYSTEM_UNDEFINED, gnss.NAVIGATION_SYSTEM_GPS, gnss.NAVIGATION_SYSTEM_GALILEO, gnss.NAVIGATION_SYSTEM_GLONASS]
+  option_labels: [UNDEFINED, GPS, GALILEO, GLONASS]
+  default: gnss.NAVIGATION_SYSTEM_UNDEFINED
+  hide: ${'none' if (num_inputs > 3) else 'all'}
+
+- id: identifier3
+  label: Id (e.g. gps svid)
+  dtype: int
+  default: -1
+  hide: ${'none' if (num_inputs > 3) else 'all'}
+
+- id: navigation_system4
+  label: Navigation System
+  dtype: enum
+  options: [gnss.NAVIGATION_SYSTEM_UNDEFINED, gnss.NAVIGATION_SYSTEM_GPS, gnss.NAVIGATION_SYSTEM_GALILEO, gnss.NAVIGATION_SYSTEM_GLONASS]
+  option_labels: [UNDEFINED, GPS, GALILEO, GLONASS]
+  default: gnss.NAVIGATION_SYSTEM_UNDEFINED
+  hide: ${'none' if (num_inputs > 4) else 'all'}
+
+- id: identifier4
+  label: Id (e.g. gps svid)
+  dtype: int
+  default: -1
+  hide: ${'none' if (num_inputs > 4) else 'all'}
+
+- id: navigation_system5
+  label: Navigation System
+  dtype: enum
+  options: [gnss.NAVIGATION_SYSTEM_UNDEFINED, gnss.NAVIGATION_SYSTEM_GPS, gnss.NAVIGATION_SYSTEM_GALILEO, gnss.NAVIGATION_SYSTEM_GLONASS]
+  option_labels: [UNDEFINED, GPS, GALILEO, GLONASS]
+  default: gnss.NAVIGATION_SYSTEM_UNDEFINED
+  hide: ${'none' if (num_inputs > 5) else 'all'}
+
+- id: identifier5
+  label: Id (e.g. gps svid)
+  dtype: int
+  default: -1
+  hide: ${'none' if (num_inputs > 5) else 'all'}
+
+- id: navigation_system6
+  label: Navigation System
+  dtype: enum
+  options: [gnss.NAVIGATION_SYSTEM_UNDEFINED, gnss.NAVIGATION_SYSTEM_GPS, gnss.NAVIGATION_SYSTEM_GALILEO, gnss.NAVIGATION_SYSTEM_GLONASS]
+  option_labels: [UNDEFINED, GPS, GALILEO, GLONASS]
+  default: gnss.NAVIGATION_SYSTEM_UNDEFINED
+  hide: ${'none' if (num_inputs > 6) else 'all'}
+
+- id: identifier6
+  label: Id (e.g. gps svid)
+  dtype: int
+  default: -1
+  hide: ${'none' if (num_inputs > 6) else 'all'}
+
+- id: navigation_system7
+  label: Navigation System
+  dtype: enum
+  options: [gnss.NAVIGATION_SYSTEM_UNDEFINED, gnss.NAVIGATION_SYSTEM_GPS, gnss.NAVIGATION_SYSTEM_GALILEO, gnss.NAVIGATION_SYSTEM_GLONASS]
+  option_labels: [UNDEFINED, GPS, GALILEO, GLONASS]
+  default: gnss.NAVIGATION_SYSTEM_UNDEFINED
+  hide: ${'none' if (num_inputs > 7) else 'all'}
+
+- id: identifier7
+  label: Id (e.g. gps svid)
+  dtype: int
+  default: -1
+  hide: ${'none' if (num_inputs > 7) else 'all'}
+
+#  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
+#  Keys include:
+#      * label (an identifier for the GUI)
+#      * domain (optional - stream or message. Default is stream)
+#      * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#      * vlen (optional - data stream vector length. Default is 1)
+#      * optional (optional - set to 1 for optional inputs. Default is 0)
+inputs:
+- domain: stream
+  label: in
+  dtype: f64
+  vlen: 3
+  multiplicity: ${num_inputs}
+
+- domain: message
+  id: clock
+  optional: true
+
+- domain: message
+  id: ephemeris
+  optional: true
+
+outputs:
+- domain: stream
+  label: out
+  dtype: f64
+  vlen: 3
+  multiplicity: ${1 * num_inputs if (add_velocity_outputs == False) else 2 * num_inputs}
+
+asserts:
+- ${num_inputs >= 1}
+- ${num_inputs <= 8}
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1
