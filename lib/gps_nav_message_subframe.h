@@ -41,15 +41,14 @@ namespace gr {
       template<typename T>
       void init(const T** vptr)
       {
+        T D29 = 0;
         T D30 = 0;
-        for (std::size_t i = 0; i < words.size(); D30 = *(*vptr - 1), ++i)
-          words[i].init(vptr, D30);
+        std::size_t i = 0;
+        for (; i < words.size(); D29 = *(*vptr - 2), D30 = *(*vptr - 1), ++i)
+          if (!words[i].init(vptr, D29, D30)) // terminate initialization on error
+            break;
 
-        unsigned id = subframe_id();
-        if (id >= 1 && id <= 5)
-          is_initialized = true; // of course proper error checking need to be implemened
-        else
-          is_initialized = false;
+        is_initialized = (i == words.size());
 
         //for (std::size_t i = 0; i < words.size(); ++i)
         //  printf("[%zu]: '%s'\n", i, words[i].to_string().c_str());
