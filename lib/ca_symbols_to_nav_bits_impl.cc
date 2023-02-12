@@ -30,17 +30,12 @@ namespace gr {
                   gr::io_signature::make(1, 1, sizeof(OTYPE) * OVLEN)),
         d_state{state_e::unlocked},
         d_polarity{0},
-        d_thershold{GPS_CA_CODES_PER_NAV_MESSAGE_BIT - 5 /* we accept 5 errors */},
-        d_subframe_bit{-1},
-        d_preamble_sybmols{}
+        d_subframe_bit{-1}
     {
       set_tag_propagation_policy(TPP_DONT);
 
       set_relative_rate(1, GPS_CA_CODES_PER_NAV_MESSAGE_BIT);
-      set_output_multiple(GPS_CA_TLM_PREAMBLE_BITS.size());
-
-      for (std::size_t i = 0; i < d_preamble_sybmols.size(); ++i)
-        d_preamble_sybmols.set(i, GPS_CA_TLM_PREAMBLE_BITS[i / GPS_CA_CODES_PER_NAV_MESSAGE_BIT]);
+      set_output_multiple(GPS_NAV_MESSAGE_BITS_PER_WORD);
     }
 
     template<typename ITYPE, typename OTYPE>
@@ -79,7 +74,7 @@ namespace gr {
           break;
 
         default:
-          consume(0, ninput_items[0]);
+          consume(0, noutput_items * GPS_CA_CODES_PER_NAV_MESSAGE_BIT);
           nproduced = 0;
           break;
       }
@@ -103,7 +98,7 @@ namespace gr {
       gr_vector_void_star &output_items)
     {
       const ITYPE* iptr0 = (const ITYPE*) input_items[0];
-      int limit = ninput_items[0] - (int)d_preamble_sybmols.size();
+      int limit = ninput_items[0] - GPS_NAV_MESSAGE_BITS_PER_WORD * GPS_CA_CODES_PER_NAV_MESSAGE_BIT;
       int i = 0;
 
       for (i = 0; i <= limit; i++) {
@@ -133,29 +128,27 @@ namespace gr {
       OTYPE* optr0 = (OTYPE*) output_items[0];
       int nproduced = 0;
       int nconsumed = 0;
-      int bit_value;
 
       std::vector<tag_t> tags;
       get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0) + ninput_items[0], pmt::mp(TAG_RX_TIME));
 
       while (nproduced < noutput_items) {
-        if ((bit_value = get_bit(iptr0 + nconsumed)) == -1) {
-          d_state = state_e::unlocked;
-          break;
+        if (d_subframe_bit == GPS_NAV_MESSAGE_BITS_PER_SUBFRAME) {
+          if (!is_preamble_detected(iptr0)) {
+            d_state = state_e::unlocked;
+            break;
+          }
+          d_subframe_bit = 0;
         }
 
+        optr0[nproduced] = get_bit(iptr0 + nconsumed);
         add_item_tag(0, nitems_written(0) + nproduced, tags[nconsumed].key, tags[nconsumed].value, alias_pmt());
         add_item_tag(0, nitems_written(0) + nproduced, pmt::mp(TAG_SUBFRAME_BIT), pmt::mp(d_subframe_bit), alias_pmt());
-        optr0[nproduced] = bit_value;
 
         nproduced++;
         nconsumed += GPS_CA_CODES_PER_NAV_MESSAGE_BIT;
-
-        d_subframe_bit++;
-        if (d_subframe_bit == GPS_NAV_MESSAGE_BITS_PER_SUBFRAME) {
-          d_subframe_bit = 0;
+        if (++d_subframe_bit == GPS_NAV_MESSAGE_BITS_PER_SUBFRAME)
           break;
-        }
       }
 
       // Tell runtime system how many input items we consumed on input 0

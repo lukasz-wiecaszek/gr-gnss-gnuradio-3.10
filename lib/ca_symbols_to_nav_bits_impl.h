@@ -52,40 +52,96 @@ namespace gr {
         STATES
 #undef STATE
 
+      int to_bit(ITYPE symbol)
+      {
+        return (symbol.real() > 0);
+      }
+
       bool is_preamble_detected(const ITYPE* symbols)
       {
+        std::size_t bit_idx;
+        int bit;
+        int xorarg;
         int n = 0;
 
-        for (std::size_t i = 0; i < d_preamble_sybmols.size(); ++i)
-          if (d_preamble_sybmols[i])
-            symbols[i].real() > 0 ? n++ : n--;
+        for (bit_idx = 0; bit_idx < GPS_CA_TLM_PREAMBLE_BITS.size(); ++bit_idx) {
+          bit = to_bit(symbols[bit_idx * GPS_CA_CODES_PER_NAV_MESSAGE_BIT]);
+          for (int i = 1; i < GPS_CA_CODES_PER_NAV_MESSAGE_BIT; ++i)
+            if (bit != to_bit(symbols[bit_idx * GPS_CA_CODES_PER_NAV_MESSAGE_BIT + i]))
+              return false;
+
+          if (GPS_CA_TLM_PREAMBLE_BITS[bit_idx] == bit)
+            n++;
           else
-            symbols[i].real() < 0 ? n++ : n--;
+            n--;
 
-        if (std::abs(n) == d_preamble_sybmols.size())
-          d_polarity = n > 0 ? +1 : -1;
+          if (std::abs(n) != (bit_idx + 1))
+            return false;
+        }
 
-        return std::abs(n) == d_preamble_sybmols.size();
+        if (n > 0) {
+          d_polarity = +1;
+          xorarg = 0;
+        } else {
+          d_polarity = -1;
+          xorarg = 1;
+        }
+
+        // At this point we know that the first 8 bits correspond to preamble pattern '0b10001011'.
+        // But this may be some arbitrary sequence of bits which apparently looks exactly the same as preamble.
+        // Some additional check needs to be done, and this will be checking the parity bits of that word.
+
+        std::bitset<GPS_NAV_MESSAGE_BITS_PER_WORD> word = 0b10001011;
+
+        for (; bit_idx < 24; ++bit_idx) {
+          bit = to_bit(symbols[bit_idx * GPS_CA_CODES_PER_NAV_MESSAGE_BIT]) ^ xorarg;
+          word <<= 1;
+          word |= bit;
+        }
+
+        word <<= 6;
+
+        // IS-GPS-200L - Chapter 20.3.5.2 "User Parity Algorithm"
+        bit = to_bit(symbols[bit_idx++ * GPS_CA_CODES_PER_NAV_MESSAGE_BIT]) ^ xorarg;
+        if ((bit + (word & GPS_PARITY_ALGORITHM_MASK_D25).count()) % 2)
+          return false;
+
+        bit = to_bit(symbols[bit_idx++ * GPS_CA_CODES_PER_NAV_MESSAGE_BIT]) ^ xorarg;
+        if ((bit + (word & GPS_PARITY_ALGORITHM_MASK_D26).count()) % 2)
+          return false;
+
+        bit = to_bit(symbols[bit_idx++ * GPS_CA_CODES_PER_NAV_MESSAGE_BIT]) ^ xorarg;
+        if ((bit + (word & GPS_PARITY_ALGORITHM_MASK_D27).count()) % 2)
+          return false;
+
+        bit = to_bit(symbols[bit_idx++ * GPS_CA_CODES_PER_NAV_MESSAGE_BIT]) ^ xorarg;
+        if ((bit + (word & GPS_PARITY_ALGORITHM_MASK_D28).count()) % 2)
+          return false;
+
+        bit = to_bit(symbols[bit_idx++ * GPS_CA_CODES_PER_NAV_MESSAGE_BIT]) ^ xorarg;
+        if ((bit + (word & GPS_PARITY_ALGORITHM_MASK_D29).count()) % 2)
+          return false;
+
+        bit = to_bit(symbols[bit_idx++ * GPS_CA_CODES_PER_NAV_MESSAGE_BIT]) ^ xorarg;
+        if ((bit + (word & GPS_PARITY_ALGORITHM_MASK_D30).count()) % 2)
+          return false;
+
+        return true;
       }
 
       int get_bit(const ITYPE* symbols)
       {
-        int n = 0;
+        double sum = 0;
 
         for (int i = 0; i < GPS_CA_CODES_PER_NAV_MESSAGE_BIT; ++i)
-          symbols[i].real() > 0 ? n++ : n--;
+          sum += symbols[i].real();
 
-        if (std::abs(n) < d_thershold)
-          return -1;
-
-        return d_polarity * n > 0 ? 1 : 0;
+        return d_polarity * sum > 0 ? 1 : 0;
       }
 
       state_e d_state;
       int d_polarity;
-      int d_thershold;
       int d_subframe_bit;
-      std::bitset<GPS_CA_TLM_PREAMBLE_BITS.size() * GPS_CA_CODES_PER_NAV_MESSAGE_BIT> d_preamble_sybmols;
     };
 
   } // namespace gnss
