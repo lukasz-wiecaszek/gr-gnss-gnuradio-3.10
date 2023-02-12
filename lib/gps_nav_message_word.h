@@ -27,12 +27,6 @@
 namespace gr {
   namespace gnss {
 
-    constexpr std::bitset<30> MASK_D25 = 0b111011000111110011010010000000;
-    constexpr std::bitset<30> MASK_D26 = 0b011101100011111001101001000000;
-    constexpr std::bitset<30> MASK_D27 = 0b101110110001111100110100000000;
-    constexpr std::bitset<30> MASK_D28 = 0b010111011000111110011010000000;
-    constexpr std::bitset<30> MASK_D29 = 0b101011101100011111001101000000;
-    constexpr std::bitset<30> MASK_D30 = 0b001011011110101000100111000000;
     constexpr std::bitset<30> MASK_PIRITY_BITS = 0b111111;
 
     class gps_nav_message_word
@@ -53,12 +47,12 @@ namespace gr {
             word.set(D(i), !values[i - 1]);
 
         // IS-GPS-200L - Chapter 20.3.5.2 "User Parity Algorithm"
-        word.set(D(25), (!!values[25 - 1] + D29 + (word & MASK_D25).count()) % 2);
-        word.set(D(26), (!!values[26 - 1] + D30 + (word & MASK_D26).count()) % 2);
-        word.set(D(27), (!!values[27 - 1] + D29 + (word & MASK_D27).count()) % 2);
-        word.set(D(28), (!!values[28 - 1] + D30 + (word & MASK_D28).count()) % 2);
-        word.set(D(29), (!!values[29 - 1] + D30 + (word & MASK_D29).count()) % 2);
-        word.set(D(30), (!!values[30 - 1] + D29 + (word & MASK_D30).count()) % 2);
+        word.set(D(25), (!!values[25 - 1] + D29 + (word & GPS_PARITY_ALGORITHM_MASK_D25).count()) % 2);
+        word.set(D(26), (!!values[26 - 1] + D30 + (word & GPS_PARITY_ALGORITHM_MASK_D26).count()) % 2);
+        word.set(D(27), (!!values[27 - 1] + D29 + (word & GPS_PARITY_ALGORITHM_MASK_D27).count()) % 2);
+        word.set(D(28), (!!values[28 - 1] + D30 + (word & GPS_PARITY_ALGORITHM_MASK_D28).count()) % 2);
+        word.set(D(29), (!!values[29 - 1] + D30 + (word & GPS_PARITY_ALGORITHM_MASK_D29).count()) % 2);
+        word.set(D(30), (!!values[30 - 1] + D29 + (word & GPS_PARITY_ALGORITHM_MASK_D30).count()) % 2);
 
 #undef D
 
