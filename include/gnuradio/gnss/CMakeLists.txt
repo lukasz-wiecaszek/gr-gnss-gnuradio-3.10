@@ -27,5 +27,6 @@ install(FILES
     skip_zeros.h
     doppler_shift.h
     geojson_file_sink.h
-    number_file_sink.h DESTINATION include/gnuradio/gnss
+    number_file_sink.h
+    pvt_satellite.h DESTINATION include/gnuradio/gnss
 )

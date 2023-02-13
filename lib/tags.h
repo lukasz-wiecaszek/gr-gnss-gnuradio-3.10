@@ -24,6 +24,7 @@
 #include <pmt/pmt.h>
 
 #define TAG_RX_TIME      "rx_time"
+#define TAG_TX_TIME      "tx_time"
 #define TAG_SUBFRAME_BIT "subframe_bit"
 #define TAG_PSEUDORANGE  "pseudorange"
 

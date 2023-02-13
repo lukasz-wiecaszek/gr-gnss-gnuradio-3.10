@@ -57,7 +57,7 @@ namespace gr {
         iptr1 = (const ITYPE *) input_items[1];
 
       std::vector<tag_t> tags;
-      get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0) + noutput_items, pmt::mp(TAG_RX_TIME));
+      get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0) + noutput_items, pmt::mp(TAG_TX_TIME));
 
       for (int n = 0; n < noutput_items; ++n) {
         skip = false;
@@ -90,7 +90,7 @@ namespace gr {
 
           //printf("r: %s\n", to_string(r).c_str());
           //printf("dr: %s, dt: %.15e\n", to_string(dr).c_str(), dt);
-          printf("v: %s, v_radial: %.15e, df: %.15e\n", to_string(v).c_str(), v_radial, df);
+          //printf("v: %s, v_radial: %.15e, df: %.15e\n", to_string(v).c_str(), v_radial, df);
 
           optr0[nproduced++] = df;
         }

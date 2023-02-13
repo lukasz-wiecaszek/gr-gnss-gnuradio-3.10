@@ -46,7 +46,8 @@ list(APPEND gnss_python_files
     skip_zeros_python.cc
     doppler_shift_python.cc
     geojson_file_sink_python.cc
-    number_file_sink_python.cc python_bindings.cc)
+    number_file_sink_python.cc
+    pvt_satellite_python.cc python_bindings.cc)
 
 GR_PYBIND_MAKE_OOT(gnss
    ../../..

@@ -28,6 +28,9 @@ At this stage of development following blocks are prepared:
 - pvt
   - Takes ECEF position and associated pseudorange from N satellies (at least 4 required)
     and produces user/receiver ECEF position. Velocity and time to be added in the future.
+- pvt_satellite
+  - Takes ephemeris and clock data from specific satellite and produces ECEF satellite position,
+    ECEF satellite velocity and time at which that position and velocity were calculated.
 - rft
   - Reference frames transformations. At this moment this block can transform
     Earth Centered Earth Fixed coordinates into Geographical Coordinate System (latitude, longitude and altitude)

@@ -21,5 +21,6 @@ install(FILES
     gnss_skip_zeros.block.yml
     gnss_doppler_shift.block.yml
     gnss_geojson_file_sink.block.yml
-    gnss_number_file_sink.block.yml DESTINATION share/gnuradio/grc/blocks
+    gnss_number_file_sink.block.yml
+    gnss_pvt_satellite.block.yml DESTINATION share/gnuradio/grc/blocks
 )

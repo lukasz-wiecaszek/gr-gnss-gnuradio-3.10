@@ -39,6 +39,7 @@ namespace py = pybind11;
     void bind_doppler_shift(py::module& m);
     void bind_geojson_file_sink(py::module& m);
     void bind_number_file_sink(py::module& m);
+    void bind_pvt_satellite(py::module& m);
 // ) END BINDING_FUNCTION_PROTOTYPES
 
 
@@ -85,5 +86,6 @@ PYBIND11_MODULE(gnss_python, m)
     bind_doppler_shift(m);
     bind_geojson_file_sink(m);
     bind_number_file_sink(m);
+    bind_pvt_satellite(m);
     // ) END BINDING_FUNCTION_CALLS
 }

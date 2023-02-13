@@ -27,6 +27,7 @@ list(APPEND gnss_sources
     doppler_shift_impl.cc
     geojson_file_sink_impl.cc
     number_file_sink_impl.cc
+    pvt_satellite_impl.cc
 )
 
 set(gnss_sources "${gnss_sources}" PARENT_SCOPE)

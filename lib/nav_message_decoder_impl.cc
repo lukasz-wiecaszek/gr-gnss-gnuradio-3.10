@@ -150,10 +150,10 @@ namespace gr {
             process_subframe(d_subframe);
             if (d_fp)
               fprintf(d_fp, "%s\n", d_subframe.to_string().c_str());
-            printf("svid %d: new (subframe %u) received\n", d_id, d_subframe.subframe_id());
+            printf("svid %02d: new (subframe %u) received\n", d_id, d_subframe.subframe_id());
           }
           else {
-            printf("svid %d: new (corrupted) subframe received\n", d_id);
+            printf("svid %02d: new (corrupted) subframe received\n", d_id);
           }
 
           d_subframe_data_cnt = 0;
