@@ -22,7 +22,7 @@ install(FILES
     resampler.h
     gnss_channel.h
     pseudoranges_decoder.h
-    pvt.h
+    pvt_user.h
     rft.h
     skip_zeros.h
     doppler_shift.h

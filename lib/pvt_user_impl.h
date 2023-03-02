@@ -5,10 +5,10 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-#ifndef INCLUDED_GNSS_PVT_IMPL_H
-#define INCLUDED_GNSS_PVT_IMPL_H
+#ifndef INCLUDED_GNSS_PVT_USER_IMPL_H
+#define INCLUDED_GNSS_PVT_USER_IMPL_H
 
-#include <gnuradio/gnss/pvt.h>
+#include <gnuradio/gnss/pvt_user.h>
 #include "pvt_utils.h"
 
 #define IVLEN 1
@@ -19,11 +19,11 @@ namespace gr {
   namespace gnss {
 
     template<typename ITYPE, typename OTYPE>
-    class pvt_impl : public pvt
+    class pvt_user_impl : public pvt_user
     {
     public:
-      pvt_impl(bool skip_zeros);
-      ~pvt_impl();
+      pvt_user_impl(bool skip_zeros);
+      ~pvt_user_impl();
 
       void forecast(int noutput_items, gr_vector_int &ninput_items_required);
 
@@ -40,4 +40,4 @@ namespace gr {
   } // namespace gnss
 } // namespace gr
 
-#endif /* INCLUDED_GNSS_PVT_IMPL_H */
+#endif /* INCLUDED_GNSS_PVT_USER_IMPL_H */

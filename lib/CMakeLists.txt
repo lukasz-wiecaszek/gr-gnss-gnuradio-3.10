@@ -21,7 +21,7 @@ list(APPEND gnss_sources
     resampler_impl.cc
     gnss_channel_impl.cc
     pseudoranges_decoder_impl.cc
-    pvt_impl.cc
+    pvt_user_impl.cc
     rft_impl.cc
     skip_zeros_impl.cc
     doppler_shift_impl.cc

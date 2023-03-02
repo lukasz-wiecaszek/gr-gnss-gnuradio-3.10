@@ -16,12 +16,12 @@
 
 
 
- static const char *__doc_gr_gnss_pvt = R"doc()doc";
+ static const char *__doc_gr_gnss_pvt_user = R"doc()doc";
 
 
- static const char *__doc_gr_gnss_pvt_pvt = R"doc()doc";
+ static const char *__doc_gr_gnss_pvt_user_pvt_user = R"doc()doc";
 
 
- static const char *__doc_gr_gnss_pvt_make = R"doc()doc";
+ static const char *__doc_gr_gnss_pvt_user_make = R"doc()doc";
 
   

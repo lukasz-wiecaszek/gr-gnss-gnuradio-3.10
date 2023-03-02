@@ -16,7 +16,7 @@ install(FILES
     gnss_resampler.block.yml
     gnss_gnss_channel.block.yml
     gnss_pseudoranges_decoder.block.yml
-    gnss_pvt.block.yml
+    gnss_pvt_user.block.yml
     gnss_rft.block.yml
     gnss_skip_zeros.block.yml
     gnss_doppler_shift.block.yml

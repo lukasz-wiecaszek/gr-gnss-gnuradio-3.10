@@ -116,7 +116,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/memyselfandi/projects/gnss-sdr-files/2013_04_04_GNSS_SIGNAL_at_CTTC_SPAIN/2013_04_04_GNSS_SIGNAL_at_CTTC_SPAIN.dat
+    file: /home/memyselfandi/projects/sdr-files/gnss/2013_04_04_GNSS_SIGNAL_at_CTTC_SPAIN/2013_04_04_GNSS_SIGNAL_at_CTTC_SPAIN.dat
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -417,8 +417,8 @@ blocks:
     coordinate: [1160, 256.0]
     rotation: 0
     state: true
-- name: gnss_pvt_0_0
-  id: gnss_pvt
+- name: gnss_pvt_user_0
+  id: gnss_pvt_user
   parameters:
     affinity: ''
     alias: ''
@@ -431,7 +431,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1400, 288.0]
+    coordinate: [1392, 288.0]
     rotation: 0
     state: true
 - name: gnss_rft_0
@@ -729,11 +729,11 @@ connections:
 - [gnss_nav_message_decoder_0_0_0_0, '0', gnss_pseudoranges_decoder_0, '3']
 - [gnss_nav_message_decoder_0_0_0_0, clock, gnss_pseudoranges_decoder_0, clock]
 - [gnss_nav_message_decoder_0_0_0_0, ephemeris, gnss_pseudoranges_decoder_0, ephemeris]
-- [gnss_pseudoranges_decoder_0, '0', gnss_pvt_0_0, '0']
-- [gnss_pseudoranges_decoder_0, '1', gnss_pvt_0_0, '1']
-- [gnss_pseudoranges_decoder_0, '2', gnss_pvt_0_0, '2']
-- [gnss_pseudoranges_decoder_0, '3', gnss_pvt_0_0, '3']
-- [gnss_pvt_0_0, '0', gnss_rft_0, '0']
+- [gnss_pseudoranges_decoder_0, '0', gnss_pvt_user_0, '0']
+- [gnss_pseudoranges_decoder_0, '1', gnss_pvt_user_0, '1']
+- [gnss_pseudoranges_decoder_0, '2', gnss_pvt_user_0, '2']
+- [gnss_pseudoranges_decoder_0, '3', gnss_pvt_user_0, '3']
+- [gnss_pvt_user_0, '0', gnss_rft_0, '0']
 - [gnss_rft_0, '0', gnss_geojson_file_sink_1, '0']
 - [gnss_signal_normalizer_0, '0', blocks_throttle_0, '0']
 - [gnss_type_converter_0_0, '0', qtgui_time_sink_x_0_0_0_0, '0']

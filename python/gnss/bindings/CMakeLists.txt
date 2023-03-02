@@ -40,7 +40,7 @@ list(APPEND gnss_python_files
     resampler_python.cc
     gnss_channel_python.cc
     pseudoranges_decoder_python.cc
-    pvt_python.cc
+    pvt_user_python.cc
     rft_type_python.cc
     rft_python.cc
     skip_zeros_python.cc

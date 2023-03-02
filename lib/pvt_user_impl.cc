@@ -6,7 +6,7 @@
  */
 
 #include <gnuradio/io_signature.h>
-#include "pvt_impl.h"
+#include "pvt_user_impl.h"
 #include "tags.h"
 
 namespace gr {
@@ -15,15 +15,15 @@ namespace gr {
     /*===========================================================================*\
     * public function definitions
     \*===========================================================================*/
-    pvt::sptr
-    pvt::make(bool skip_zeros)
+    pvt_user::sptr
+    pvt_user::make(bool skip_zeros)
     {
-      return gnuradio::make_block_sptr<pvt_impl<vector3d, vector3d>>(skip_zeros);
+      return gnuradio::make_block_sptr<pvt_user_impl<vector3d, vector3d>>(skip_zeros);
     }
 
     template<typename ITYPE, typename OTYPE>
-    pvt_impl<ITYPE, OTYPE>::pvt_impl(bool skip_zeros)
-      : gr::block("pvt",
+    pvt_user_impl<ITYPE, OTYPE>::pvt_user_impl(bool skip_zeros)
+      : gr::block("pvt_user",
                   gr::io_signature::make(1, MAX_STREAMS, sizeof(ITYPE) * IVLEN),
                   gr::io_signature::make(1, 1, sizeof(OTYPE) * OVLEN)),
       d_hint{},
@@ -33,13 +33,13 @@ namespace gr {
     }
 
     template<typename ITYPE, typename OTYPE>
-    pvt_impl<ITYPE, OTYPE>::~pvt_impl()
+    pvt_user_impl<ITYPE, OTYPE>::~pvt_user_impl()
     {
     }
 
     template<typename ITYPE, typename OTYPE>
     void
-    pvt_impl<ITYPE, OTYPE>::forecast(int noutput_items, gr_vector_int &ninput_items_required)
+    pvt_user_impl<ITYPE, OTYPE>::forecast(int noutput_items, gr_vector_int &ninput_items_required)
     {
      // 1 output item requires 1 item at input
       int nrequired = noutput_items;
@@ -50,7 +50,7 @@ namespace gr {
 
     template<typename ITYPE, typename OTYPE>
     int
-    pvt_impl<ITYPE, OTYPE>::general_work(int noutput_items,
+    pvt_user_impl<ITYPE, OTYPE>::general_work(int noutput_items,
                  gr_vector_int &ninput_items,
                  gr_vector_const_void_star &input_items,
                  gr_vector_void_star &output_items)
@@ -93,14 +93,14 @@ namespace gr {
           vector3d efec_user_position;
 
 #define CASE(x) case x: pvt_utils::get<x>(satelites, d_hint, &efec_user_position, NULL, NULL)
-        switch (N) {
-          CASE(4); break;
-          CASE(5); break;
-          CASE(6); break;
-          CASE(7); break;
-          CASE(8); break;
-          default: break;
-        }
+          switch (N) {
+            CASE(4); break;
+            CASE(5); break;
+            CASE(6); break;
+            CASE(7); break;
+            CASE(8); break;
+            default: break;
+          }
 #undef CASE
 
           optr0[nproduced] = efec_user_position;

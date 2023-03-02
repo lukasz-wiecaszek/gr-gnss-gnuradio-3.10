@@ -13,8 +13,8 @@
 /* If manual edits are made, the following tags should be modified accordingly.    */
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
-/* BINDTOOL_HEADER_FILE(pvt.h)                                                     */
-/* BINDTOOL_HEADER_FILE_HASH(3e494822c6dc3a98dee7213d33f00d3f)                     */
+/* BINDTOOL_HEADER_FILE(pvt_user.h)                                                */
+/* BINDTOOL_HEADER_FILE_HASH(57e1efb9aa45198474b845f823f21169)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -23,21 +23,21 @@
 
 namespace py = pybind11;
 
-#include <gnuradio/gnss/pvt.h>
-#include <pvt_pydoc.h>
+#include <gnuradio/gnss/pvt_user.h>
+#include <pvt_user_pydoc.h>
 
-void bind_pvt(py::module& m)
+void bind_pvt_user(py::module& m)
 {
-    using pvt = gr::gnss::pvt;
+    using pvt_user = gr::gnss::pvt_user;
 
-    py::class_<pvt,
+    py::class_<pvt_user,
                gr::block,
                gr::basic_block,
-               std::shared_ptr<pvt>>(m, "pvt", D(pvt))
+               std::shared_ptr<pvt_user>>(m, "pvt_user", D(pvt_user))
         .def(
-            py::init(&pvt::make),
+            py::init(&pvt_user::make),
             py::arg("skip_zeros"),
-            D(pvt,make)
+            D(pvt_user,make)
         );
 }
 

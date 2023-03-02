@@ -32,13 +32,13 @@ namespace py = pybind11;
     void bind_resampler(py::module& m);
     void bind_gnss_channel(py::module& m);
     void bind_pseudoranges_decoder(py::module& m);
-    void bind_pvt(py::module& m);
     void bind_rft_type(py::module& m);
     void bind_rft(py::module& m);
     void bind_skip_zeros(py::module& m);
     void bind_doppler_shift(py::module& m);
     void bind_geojson_file_sink(py::module& m);
     void bind_number_file_sink(py::module& m);
+    void bind_pvt_user(py::module& m);
     void bind_pvt_satellite(py::module& m);
 // ) END BINDING_FUNCTION_PROTOTYPES
 
@@ -79,13 +79,13 @@ PYBIND11_MODULE(gnss_python, m)
     bind_resampler(m);
     bind_gnss_channel(m);
     bind_pseudoranges_decoder(m);
-    bind_pvt(m);
     bind_rft_type(m);
     bind_rft(m);
     bind_skip_zeros(m);
     bind_doppler_shift(m);
     bind_geojson_file_sink(m);
     bind_number_file_sink(m);
+    bind_pvt_user(m);
     bind_pvt_satellite(m);
     // ) END BINDING_FUNCTION_CALLS
 }

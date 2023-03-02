@@ -25,7 +25,7 @@ At this stage of development following blocks are prepared:
     All these data are produced at one common time base.
     It requires ephemeris and clock data from navigation messages
     (of course from the same satellites as the pseudoranges measurements).
-- pvt
+- pvt_user
   - Takes ECEF position and associated pseudorange from N satellies (at least 4 required)
     and produces user/receiver ECEF position. Velocity and time to be added in the future.
 - pvt_satellite

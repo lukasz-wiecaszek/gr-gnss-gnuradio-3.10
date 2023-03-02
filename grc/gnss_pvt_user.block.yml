@@ -1,10 +1,10 @@
-id: gnss_pvt
-label: PVT
+id: gnss_pvt_user
+label: PVT User
 category: '[GNSS]'
 
 templates:
   imports: from gnuradio import gnss
-  make: gnss.pvt(${skip_zeros})
+  make: gnss.pvt_user(${skip_zeros})
 
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.
 #     Keys include:

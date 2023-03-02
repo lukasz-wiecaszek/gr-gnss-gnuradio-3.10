@@ -5,8 +5,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-#ifndef INCLUDED_GNSS_PVT_H
-#define INCLUDED_GNSS_PVT_H
+#ifndef INCLUDED_GNSS_PVT_USER_H
+#define INCLUDED_GNSS_PVT_USER_H
 
 #include <gnuradio/block.h>
 #include <gnuradio/gnss/api.h>
@@ -18,12 +18,12 @@ namespace gr {
      * \brief <+description of block+>
      * \ingroup gnss
      */
-    struct GNSS_API pvt : virtual public gr::block
+    struct GNSS_API pvt_user : virtual public gr::block
     {
-      using sptr = std::shared_ptr<pvt>;
+      using sptr = std::shared_ptr<pvt_user>;
 
       /*!
-       * \brief Return a shared_ptr to a new instance of gnss::pvt block.
+       * \brief Return a shared_ptr to a new instance of gnss::pvt_user block.
        */
       static sptr make(bool skip_zeros = true);
     };
@@ -31,4 +31,4 @@ namespace gr {
   } // namespace gnss
 } // namespace gr
 
-#endif /* INCLUDED_GNSS_PVT_H */
+#endif /* INCLUDED_GNSS_PVT_USER_H */
