@@ -8,9 +8,9 @@ This is the main reason and motivation why this project was created.
 At this stage of development following blocks are prepared:
 - acquisition_and_tracking
   - Acquisition and tracking combined in one block. Acquisition is responsible for fast detection
-    and coarse estimation of the code phase and Doppler shift of the incoming signal.
-    Tracking takes output from the acquisition (code phase and Doppler shift)
-    and keeps track of those two parameters as times flow.
+    and coarse estimation of the C/A code phase and Doppler shift of the incoming signal.
+    Tracking takes output from the acquisition (rough estimation of code phase and Doppler shift)
+    and then refines and keeps tracking of those two parameters as times flow.
 - ca_code_generator
   - Coarse/Acquisition codes generator (source block).
 - ca_symbols_to_nav_bits
@@ -42,7 +42,13 @@ At this stage of development following blocks are prepared:
 - number_file_sink
   - Helper block, used to store output data/numbers in a file.
     I am using this block currently for storing doppler shift frequencies
-    from debug port of 'acquisition_and_tracking' block. Please see 'examples/doppler_shift_svid_20.png'.
+    from debug port of 'acquisition_and_tracking' block.
+- doppler_shift
+  - Doppler Shift block takes samples describing satellite position in ECEF reference frame.
+    When constructed it is given user/receiver position (also in ECEF frame).
+    Having got user position and satellite positions it calculates satellite velocity.
+    Longitudinal velocity component is then retrieved. Finally Doppler shift is calculated
+    and is made available as the output of the block.
 
 If interested, please see especially gps_acquisition_and_tracking_v4.grc
 where you will be able to spot navigation message bits on the GUI Time Sink.
