@@ -83,10 +83,10 @@ namespace gr {
           double dt = t - d_t;
           ITYPE dr = r - d_r;
           ITYPE v = (dr / dt);
-          ITYPE er = r / abs(r);
+          ITYPE el = r / abs(r);
 
-          double v_radial = lts::transpose(v) * er;
-          double df = GPS_L1_FREQ_HZ * (std::sqrt((C - v_radial) / (C + v_radial)) - 1.0);
+          double v_longitudinal = lts::transpose(v) * el;
+          double df = GPS_L1_FREQ_HZ * (1.0 - std::sqrt((C - v_longitudinal) / (C + v_longitudinal)));
 
           //printf("r: %s\n", to_string(r).c_str());
           //printf("dr: %s, dt: %.15e\n", to_string(dr).c_str(), dt);
