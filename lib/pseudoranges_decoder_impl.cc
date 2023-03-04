@@ -196,8 +196,8 @@ namespace gr {
             optr = static_cast<OTYPE*>(output_items[N + n]);
             optr[nproduced] = satelites[n].velocity;
           }
-          add_item_tag(n, nitems_written(n), pmt::mp(TAG_PSEUDORANGE), pmt::mp(satelites[n].pseudorange), alias_pmt());
-          add_item_tag(n, nitems_written(n), pmt::mp(TAG_RX_TIME), pmt::mp(rx_time), alias_pmt());
+          add_item_tag(n, nitems_written(n) + nproduced, pmt::mp(TAG_PSEUDORANGE), pmt::mp(satelites[n].pseudorange), alias_pmt());
+          add_item_tag(n, nitems_written(n) + nproduced, pmt::mp(TAG_RX_TIME), pmt::mp(rx_time), alias_pmt());
         }
 
         nproduced++;
