@@ -13,7 +13,7 @@
 #include "vector3d.h"
 #include "pvt_utils.h"
 
-#define DECIMATION_FACTOR 5
+#define DECIMATION_FACTOR 1
 
 namespace gr {
   namespace gnss {
@@ -146,7 +146,7 @@ namespace gr {
         optr0[nproduced] = satelite.position;
         optr1[nproduced] = satelite.velocity;
         optr2[nproduced] = tx_time;
-        add_item_tag(0, nitems_written(0), pmt::mp(TAG_TX_TIME), pmt::mp(tx_time), alias_pmt());
+        add_item_tag(0, nitems_written(0) + nproduced, pmt::mp(TAG_TX_TIME), pmt::mp(tx_time), alias_pmt());
 
         nproduced++;
       }
