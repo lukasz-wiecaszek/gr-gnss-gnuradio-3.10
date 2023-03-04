@@ -69,22 +69,6 @@ blocks:
     coordinate: [96, 216.0]
     rotation: 0
     state: enabled
-- name: blocks_complex_to_real_0
-  id: blocks_complex_to_real
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1152, 152.0]
-    rotation: 0
-    state: true
 - name: blocks_file_source_0
   id: blocks_file_source
   parameters:
@@ -92,7 +76,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/memyselfandi/projects/gnss-sdr-files/2013_04_04_GNSS_SIGNAL_at_CTTC_SPAIN/2013_04_04_GNSS_SIGNAL_at_CTTC_SPAIN.dat
+    file: /home/memyselfandi/projects/sdr-files/gnss/2013_04_04_GNSS_SIGNAL_at_CTTC_SPAIN/2013_04_04_GNSS_SIGNAL_at_CTTC_SPAIN.dat
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -132,7 +116,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    debug_port: 'True'
+    debug_ports: 'True'
     dll_bw_coarse: '4.0'
     dll_bw_fine: '2.0'
     identifier: svid
@@ -287,7 +271,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1120, 208.0]
+    coordinate: [1136, 232.0]
     rotation: 180
     state: true
 - name: gnss_pvt_satellite_0
@@ -344,22 +328,22 @@ blocks:
     coordinate: [896, 48.0]
     rotation: 0
     state: true
-- name: gnss_type_converter_0_0_0
+- name: gnss_type_converter_0_0_0_0
   id: gnss_type_converter
   parameters:
     affinity: ''
     alias: ''
     comment: ''
-    itype: fc64
+    itype: f64
     maxoutbuf: '0'
     minoutbuf: '0'
-    otype: fc32
+    otype: f32
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [896, 136.0]
+    coordinate: [920, 144.0]
     rotation: 0
     state: true
 - name: qtgui_time_sink_x_0_0_0
@@ -514,8 +498,8 @@ blocks:
     marker9: '-1'
     name: '""'
     nconnections: '1'
-    size: '200'
-    srate: '1000'
+    size: '25'
+    srate: '50'
     stemplot: 'False'
     style1: '1'
     style10: '1'
@@ -553,18 +537,36 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1344, 128.0]
+    coordinate: [1344, 136.0]
+    rotation: 0
+    state: true
+- name: rational_resampler_xxx_0
+  id: rational_resampler_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    decim: '20'
+    fbw: '0'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    taps: '[]'
+    type: fff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1136, 128.0]
     rotation: 0
     state: true
 
 connections:
-- [blocks_complex_to_real_0, '0', gnss_number_file_sink_0_0_0, '0']
-- [blocks_complex_to_real_0, '0', qtgui_time_sink_x_0_0_0_0_0, '0']
 - [blocks_file_source_0, '0', gnss_signal_normalizer_0, '0']
 - [blocks_throttle_0, '0', gnss_acquisition_and_tracking_0, '0']
 - [gnss_acquisition_and_tracking_0, '0', gnss_ca_symbols_to_nav_bits_0, '0']
 - [gnss_acquisition_and_tracking_0, '0', gnss_type_converter_0, '0']
-- [gnss_acquisition_and_tracking_0, '1', gnss_type_converter_0_0_0, '0']
+- [gnss_acquisition_and_tracking_0, '1', gnss_type_converter_0_0_0_0, '0']
 - [gnss_ca_symbols_to_nav_bits_0, '0', gnss_nav_message_decoder_0, '0']
 - [gnss_doppler_shift_0, '0', gnss_number_file_sink_0_0_2, '0']
 - [gnss_nav_message_decoder_0, '0', gnss_pvt_satellite_0, '0']
@@ -576,7 +578,9 @@ connections:
 - [gnss_pvt_satellite_0, '2', gnss_number_file_sink_0_0_1, '0']
 - [gnss_signal_normalizer_0, '0', blocks_throttle_0, '0']
 - [gnss_type_converter_0, '0', qtgui_time_sink_x_0_0_0, '0']
-- [gnss_type_converter_0_0_0, '0', blocks_complex_to_real_0, '0']
+- [gnss_type_converter_0_0_0_0, '0', rational_resampler_xxx_0, '0']
+- [rational_resampler_xxx_0, '0', gnss_number_file_sink_0_0_0, '0']
+- [rational_resampler_xxx_0, '0', qtgui_time_sink_x_0_0_0_0_0, '0']
 
 metadata:
   file_format: 1

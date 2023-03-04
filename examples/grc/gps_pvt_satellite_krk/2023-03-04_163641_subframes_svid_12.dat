@@ -1,0 +1,141 @@
+sv_clock_parameters:
+	svid:        12
+	IODC:        58
+	t_oc:        302400
+	week_no:     201
+	SV_accuracy: 0
+	SV_health:   0
+	T_GD:        -1.257285e-08
+	a_f0:        -3.406210e-04
+	a_f1:        -4.547474e-12
+	a_f2:        +0.000000e+00
+
+subframe id: 1, tow: 50366 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 58, T_GD: -27, t_oc: 18900, a_f0: -731478, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50367 | IODE: 58, C_RS: 2319, DELTA_N: 12023, M_0: 42666850, C_UC: 2003, e: 76573838, C_US: 4765, SQRT_A: 2702001859, t_oe: 18900, AODO: 19
+ephemeris:
+	svid:       12
+	IODE:       58/58
+	t_oe:       302400
+	e:          +8.914368e-03 [dimensionless]
+	sqrt_a:     +5.153660e+03 [m^1/2]
+	M_0:        +6.241811e-02 [rad]
+	delta_n:    +4.294107e-09 [rad/s]
+	OMEGA_0:    +2.105798e+00 [rad]
+	i_0:        +9.661540e-01 [rad]
+	omega:      +1.334869e+00 [rad]
+	dOMEGA_dt:  -7.929973e-09 [rad/s]
+	dI_dt:      -3.768014e-10 [rad/s]
+correction terms:
+	orbit radius:         (+2.133125e+02, +7.246875e+01) [m]
+	argument of latitude: (+3.730878e-06, +8.875504e-06) [rad]
+	angle of inclination: (-1.545995e-07, +7.264316e-08) [rad]
+
+
+subframe id: 3, tow: 50368 | C_IC: -83, OMEGA_0: 1439450669, C_IS: 39, i_0: 660429321, C_RC: 6826, omega: 912469781, dOMEGA_dt: -22203, IODE: 58, dI_dt: -1055
+subframe id: 4, tow: 50369
+subframe id: 5, tow: 50370
+subframe id: 1, tow: 50371 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 58, T_GD: -27, t_oc: 18900, a_f0: -731478, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50372 | IODE: 58, C_RS: 2319, DELTA_N: 12023, M_0: 42666850, C_UC: 2003, e: 76573838, C_US: 4765, SQRT_A: 2702001859, t_oe: 18900, AODO: 19
+subframe id: 3, tow: 50373 | C_IC: -83, OMEGA_0: 1439450669, C_IS: 39, i_0: 660429321, C_RC: 6826, omega: 912469781, dOMEGA_dt: -22203, IODE: 58, dI_dt: -1055
+subframe id: 4, tow: 50374
+subframe id: 5, tow: 50375
+subframe id: 1, tow: 50376 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 58, T_GD: -27, t_oc: 18900, a_f0: -731478, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50377 | IODE: 58, C_RS: 2319, DELTA_N: 12023, M_0: 42666850, C_UC: 2003, e: 76573838, C_US: 4765, SQRT_A: 2702001859, t_oe: 18900, AODO: 19
+subframe id: 3, tow: 50378 | C_IC: -83, OMEGA_0: 1439450669, C_IS: 39, i_0: 660429321, C_RC: 6826, omega: 912469781, dOMEGA_dt: -22203, IODE: 58, dI_dt: -1055
+subframe id: 4, tow: 50379
+subframe id: 5, tow: 50380
+subframe id: 1, tow: 50381 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 58, T_GD: -27, t_oc: 18900, a_f0: -731478, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50382 | IODE: 58, C_RS: 2319, DELTA_N: 12023, M_0: 42666850, C_UC: 2003, e: 76573838, C_US: 4765, SQRT_A: 2702001859, t_oe: 18900, AODO: 19
+subframe id: 3, tow: 50383 | C_IC: -83, OMEGA_0: 1439450669, C_IS: 39, i_0: 660429321, C_RC: 6826, omega: 912469781, dOMEGA_dt: -22203, IODE: 58, dI_dt: -1055
+subframe id: 4, tow: 50384
+subframe id: 5, tow: 50385
+subframe id: 1, tow: 50386 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 58, T_GD: -27, t_oc: 18900, a_f0: -731478, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50387 | IODE: 58, C_RS: 2319, DELTA_N: 12023, M_0: 42666850, C_UC: 2003, e: 76573838, C_US: 4765, SQRT_A: 2702001859, t_oe: 18900, AODO: 19
+subframe id: 3, tow: 50388 | C_IC: -83, OMEGA_0: 1439450669, C_IS: 39, i_0: 660429321, C_RC: 6826, omega: 912469781, dOMEGA_dt: -22203, IODE: 58, dI_dt: -1055
+subframe id: 4, tow: 50389
+subframe id: 5, tow: 50390
+subframe id: 1, tow: 50391 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 58, T_GD: -27, t_oc: 18900, a_f0: -731478, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50392 | IODE: 58, C_RS: 2319, DELTA_N: 12023, M_0: 42666850, C_UC: 2003, e: 76573838, C_US: 4765, SQRT_A: 2702001859, t_oe: 18900, AODO: 19
+subframe id: 3, tow: 50393 | C_IC: -83, OMEGA_0: 1439450669, C_IS: 39, i_0: 660429321, C_RC: 6826, omega: 912469781, dOMEGA_dt: -22203, IODE: 58, dI_dt: -1055
+subframe id: 4, tow: 50394
+subframe id: 5, tow: 50395
+subframe id: 1, tow: 50396 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 58, T_GD: -27, t_oc: 18900, a_f0: -731478, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50397 | IODE: 58, C_RS: 2319, DELTA_N: 12023, M_0: 42666850, C_UC: 2003, e: 76573838, C_US: 4765, SQRT_A: 2702001859, t_oe: 18900, AODO: 19
+subframe id: 3, tow: 50398 | C_IC: -83, OMEGA_0: 1439450669, C_IS: 39, i_0: 660429321, C_RC: 6826, omega: 912469781, dOMEGA_dt: -22203, IODE: 58, dI_dt: -1055
+subframe id: 4, tow: 50399
+subframe id: 5, tow: 50400
+sv_clock_parameters:
+	svid:        12
+	IODC:        63
+	t_oc:        309600
+	week_no:     201
+	SV_accuracy: 0
+	SV_health:   0
+	T_GD:        -1.257285e-08
+	a_f0:        -3.406540e-04
+	a_f1:        -4.547474e-12
+	a_f2:        +0.000000e+00
+
+subframe id: 1, tow: 50401 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 63, T_GD: -27, t_oc: 19350, a_f0: -731549, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50402 | IODE: 63, C_RS: 1892, DELTA_N: 11869, M_0: 760428345, C_UC: 1599, e: 76587272, C_US: 4991, SQRT_A: 2702003952, t_oe: 19350, AODO: 27
+subframe id: 3, tow: 50403 | C_IC: -78, OMEGA_0: 1439411784, C_IS: -33, i_0: 660427229, C_RC: 6565, omega: 912579502, dOMEGA_dt: -22179, IODE: 63, dI_dt: -1220
+subframe id: 4, tow: 50404
+subframe id: 5, tow: 50405
+subframe id: 1, tow: 50406 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 63, T_GD: -27, t_oc: 19350, a_f0: -731549, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50407 | IODE: 63, C_RS: 1892, DELTA_N: 11869, M_0: 760428345, C_UC: 1599, e: 76587272, C_US: 4991, SQRT_A: 2702003952, t_oe: 19350, AODO: 27
+subframe id: 3, tow: 50408 | C_IC: -78, OMEGA_0: 1439411784, C_IS: -33, i_0: 660427229, C_RC: 6565, omega: 912579502, dOMEGA_dt: -22179, IODE: 63, dI_dt: -1220
+subframe id: 4, tow: 50409
+subframe id: 5, tow: 50410
+subframe id: 1, tow: 50411 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 63, T_GD: -27, t_oc: 19350, a_f0: -731549, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50412 | IODE: 63, C_RS: 1892, DELTA_N: 11869, M_0: 760428345, C_UC: 1599, e: 76587272, C_US: 4991, SQRT_A: 2702003952, t_oe: 19350, AODO: 27
+subframe id: 3, tow: 50413 | C_IC: -78, OMEGA_0: 1439411784, C_IS: -33, i_0: 660427229, C_RC: 6565, omega: 912579502, dOMEGA_dt: -22179, IODE: 63, dI_dt: -1220
+subframe id: 4, tow: 50414
+subframe id: 5, tow: 50415
+subframe id: 1, tow: 50416 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 63, T_GD: -27, t_oc: 19350, a_f0: -731549, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50417 | IODE: 63, C_RS: 1892, DELTA_N: 11869, M_0: 760428345, C_UC: 1599, e: 76587272, C_US: 4991, SQRT_A: 2702003952, t_oe: 19350, AODO: 27
+subframe id: 3, tow: 50418 | C_IC: -78, OMEGA_0: 1439411784, C_IS: -33, i_0: 660427229, C_RC: 6565, omega: 912579502, dOMEGA_dt: -22179, IODE: 63, dI_dt: -1220
+subframe id: 4, tow: 50419
+subframe id: 5, tow: 50420
+subframe id: 1, tow: 50421 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 63, T_GD: -27, t_oc: 19350, a_f0: -731549, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50422 | IODE: 63, C_RS: 1892, DELTA_N: 11869, M_0: 760428345, C_UC: 1599, e: 76587272, C_US: 4991, SQRT_A: 2702003952, t_oe: 19350, AODO: 27
+subframe id: 3, tow: 50423 | C_IC: -78, OMEGA_0: 1439411784, C_IS: -33, i_0: 660427229, C_RC: 6565, omega: 912579502, dOMEGA_dt: -22179, IODE: 63, dI_dt: -1220
+subframe id: 4, tow: 50424
+subframe id: 5, tow: 50425
+subframe id: 1, tow: 50426 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 63, T_GD: -27, t_oc: 19350, a_f0: -731549, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50427 | IODE: 63, C_RS: 1892, DELTA_N: 11869, M_0: 760428345, C_UC: 1599, e: 76587272, C_US: 4991, SQRT_A: 2702003952, t_oe: 19350, AODO: 27
+subframe id: 3, tow: 50428 | C_IC: -78, OMEGA_0: 1439411784, C_IS: -33, i_0: 660427229, C_RC: 6565, omega: 912579502, dOMEGA_dt: -22179, IODE: 63, dI_dt: -1220
+subframe id: 4, tow: 50429
+subframe id: 5, tow: 50430
+subframe id: 1, tow: 50431 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 63, T_GD: -27, t_oc: 19350, a_f0: -731549, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50432 | IODE: 63, C_RS: 1892, DELTA_N: 11869, M_0: 760428345, C_UC: 1599, e: 76587272, C_US: 4991, SQRT_A: 2702003952, t_oe: 19350, AODO: 27
+subframe id: 3, tow: 50433 | C_IC: -78, OMEGA_0: 1439411784, C_IS: -33, i_0: 660427229, C_RC: 6565, omega: 912579502, dOMEGA_dt: -22179, IODE: 63, dI_dt: -1220
+subframe id: 4, tow: 50434
+subframe id: 5, tow: 50435
+subframe id: 1, tow: 50436 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 63, T_GD: -27, t_oc: 19350, a_f0: -731549, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50437 | IODE: 63, C_RS: 1892, DELTA_N: 11869, M_0: 760428345, C_UC: 1599, e: 76587272, C_US: 4991, SQRT_A: 2702003952, t_oe: 19350, AODO: 27
+subframe id: 3, tow: 50438 | C_IC: -78, OMEGA_0: 1439411784, C_IS: -33, i_0: 660427229, C_RC: 6565, omega: 912579502, dOMEGA_dt: -22179, IODE: 63, dI_dt: -1220
+subframe id: 4, tow: 50439
+subframe id: 5, tow: 50440
+subframe id: 1, tow: 50441 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 63, T_GD: -27, t_oc: 19350, a_f0: -731549, a_f1: -40, a_f2: 0
+subframe id: 3, tow: 50443 | C_IC: -78, OMEGA_0: 1439411784, C_IS: -33, i_0: 660427229, C_RC: 6565, omega: 912579502, dOMEGA_dt: -22179, IODE: 63, dI_dt: -1220
+subframe id: 4, tow: 50444
+subframe id: 5, tow: 50445
+subframe id: 1, tow: 50446 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 63, T_GD: -27, t_oc: 19350, a_f0: -731549, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50447 | IODE: 63, C_RS: 1892, DELTA_N: 11869, M_0: 760428345, C_UC: 1599, e: 76587272, C_US: 4991, SQRT_A: 2702003952, t_oe: 19350, AODO: 27
+subframe id: 3, tow: 50448 | C_IC: -78, OMEGA_0: 1439411784, C_IS: -33, i_0: 660427229, C_RC: 6565, omega: 912579502, dOMEGA_dt: -22179, IODE: 63, dI_dt: -1220
+subframe id: 4, tow: 50449
+subframe id: 5, tow: 50450
+subframe id: 1, tow: 50451 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 63, T_GD: -27, t_oc: 19350, a_f0: -731549, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50452 | IODE: 63, C_RS: 1892, DELTA_N: 11869, M_0: 760428345, C_UC: 1599, e: 76587272, C_US: 4991, SQRT_A: 2702003952, t_oe: 19350, AODO: 27
+subframe id: 3, tow: 50453 | C_IC: -78, OMEGA_0: 1439411784, C_IS: -33, i_0: 660427229, C_RC: 6565, omega: 912579502, dOMEGA_dt: -22179, IODE: 63, dI_dt: -1220
+subframe id: 4, tow: 50454
+subframe id: 5, tow: 50455
+subframe id: 1, tow: 50456 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 63, T_GD: -27, t_oc: 19350, a_f0: -731549, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50457 | IODE: 63, C_RS: 1892, DELTA_N: 11869, M_0: 760428345, C_UC: 1599, e: 76587272, C_US: 4991, SQRT_A: 2702003952, t_oe: 19350, AODO: 27
+subframe id: 3, tow: 50458 | C_IC: -78, OMEGA_0: 1439411784, C_IS: -33, i_0: 660427229, C_RC: 6565, omega: 912579502, dOMEGA_dt: -22179, IODE: 63, dI_dt: -1220
+subframe id: 4, tow: 50459
+subframe id: 5, tow: 50460
+subframe id: 1, tow: 50461 | WN: 201, CA_OR_P_ON_L2: 1, URA_INDEX: 0, SV_HEALTH: 0, IODC: 63, T_GD: -27, t_oc: 19350, a_f0: -731549, a_f1: -40, a_f2: 0
+subframe id: 2, tow: 50462 | IODE: 63, C_RS: 1892, DELTA_N: 11869, M_0: 760428345, C_UC: 1599, e: 76587272, C_US: 4991, SQRT_A: 2702003952, t_oe: 19350, AODO: 27
+subframe id: 3, tow: 50463 | C_IC: -78, OMEGA_0: 1439411784, C_IS: -33, i_0: 660427229, C_RC: 6565, omega: 912579502, dOMEGA_dt: -22179, IODE: 63, dI_dt: -1220
+subframe id: 4, tow: 50464

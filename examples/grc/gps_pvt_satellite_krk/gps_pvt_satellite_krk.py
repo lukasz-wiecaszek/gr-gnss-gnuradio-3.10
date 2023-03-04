@@ -26,6 +26,7 @@ from gnuradio.filter import firdes
 import sip
 from gnuradio import blocks
 import pmt
+from gnuradio import filter
 from gnuradio import gnss
 from gnuradio import gr
 from gnuradio.fft import window
@@ -82,15 +83,20 @@ class gps_pvt_satellite_krk(gr.top_block, Qt.QWidget):
         ##################################################
         # Blocks
         ##################################################
+        self.rational_resampler_xxx_0 = filter.rational_resampler_fff(
+                interpolation=1,
+                decimation=20,
+                taps=[],
+                fractional_bw=0)
         self.qtgui_time_sink_x_0_0_0_0_0 = qtgui.time_sink_f(
-            200, #size
-            1000, #samp_rate
+            25, #size
+            50, #samp_rate
             "", #name
             1, #number of inputs
             None # parent
         )
         self.qtgui_time_sink_x_0_0_0_0_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0_0_0_0_0.set_y_axis(-5000-200, -5000+200)
+        self.qtgui_time_sink_x_0_0_0_0_0.set_y_axis(-4200-200, -4200+200)
 
         self.qtgui_time_sink_x_0_0_0_0_0.set_y_label('Amplitude', "")
 
@@ -181,7 +187,7 @@ class gps_pvt_satellite_krk(gr.top_block, Qt.QWidget):
 
         self._qtgui_time_sink_x_0_0_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0_0.qwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._qtgui_time_sink_x_0_0_0_win)
-        self.gnss_type_converter_0_0_0 = gnss.fc64_to_fc32(1)
+        self.gnss_type_converter_0_0_0 = gnss.f64_to_f32(1)
         self.gnss_type_converter_0 = gnss.fc64_to_fc32(1)
         self.gnss_signal_normalizer_0 = gnss.signal_normalizer_u8_fc32(1, 8)
         self.gnss_pvt_satellite_0 = gnss.pvt_satellite()
@@ -198,9 +204,8 @@ class gps_pvt_satellite_krk(gr.top_block, Qt.QWidget):
         self.gnss_acquisition_and_tracking_0 = gnss.acquisition_and_tracking(samp_rate, 4.0, 40.0, 2.0, 35.0)
         self.gnss_acquisition_and_tracking_0.set_acq_params(gnss.NAVIGATION_SYSTEM_GPS, svid)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate,True)
-        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_char*1, '/home/memyselfandi/projects/gnss-sdr-files/gps_rtlsdr_3.dat', False, 0, 0)
+        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_char*1, '/home/memyselfandi/projects/sdr-files/gnss/rtlsdr_direct_l1_v7_prn12.dat', False, 0, 0)
         self.blocks_file_source_0.set_begin_tag(pmt.PMT_NIL)
-        self.blocks_complex_to_real_0 = blocks.complex_to_real(1)
 
 
         ##################################################
@@ -208,8 +213,6 @@ class gps_pvt_satellite_krk(gr.top_block, Qt.QWidget):
         ##################################################
         self.msg_connect((self.gnss_nav_message_decoder_0, 'ephemeris'), (self.gnss_pvt_satellite_0, 'ephemeris'))
         self.msg_connect((self.gnss_nav_message_decoder_0, 'clock'), (self.gnss_pvt_satellite_0, 'clock'))
-        self.connect((self.blocks_complex_to_real_0, 0), (self.gnss_number_file_sink_0_0_0, 0))
-        self.connect((self.blocks_complex_to_real_0, 0), (self.qtgui_time_sink_x_0_0_0_0_0, 0))
         self.connect((self.blocks_file_source_0, 0), (self.gnss_signal_normalizer_0, 0))
         self.connect((self.blocks_throttle_0, 0), (self.gnss_acquisition_and_tracking_0, 0))
         self.connect((self.gnss_acquisition_and_tracking_0, 0), (self.gnss_ca_symbols_to_nav_bits_0, 0))
@@ -224,7 +227,9 @@ class gps_pvt_satellite_krk(gr.top_block, Qt.QWidget):
         self.connect((self.gnss_pvt_satellite_0, 2), (self.gnss_number_file_sink_0_0_1, 0))
         self.connect((self.gnss_signal_normalizer_0, 0), (self.blocks_throttle_0, 0))
         self.connect((self.gnss_type_converter_0, 0), (self.qtgui_time_sink_x_0_0_0, 0))
-        self.connect((self.gnss_type_converter_0_0_0, 0), (self.blocks_complex_to_real_0, 0))
+        self.connect((self.gnss_type_converter_0_0_0, 0), (self.rational_resampler_xxx_0, 0))
+        self.connect((self.rational_resampler_xxx_0, 0), (self.gnss_number_file_sink_0_0_0, 0))
+        self.connect((self.rational_resampler_xxx_0, 0), (self.qtgui_time_sink_x_0_0_0_0_0, 0))
 
 
     def closeEvent(self, event):

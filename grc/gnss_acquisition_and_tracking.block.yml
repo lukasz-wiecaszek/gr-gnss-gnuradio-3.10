@@ -50,8 +50,8 @@ parameters:
   dtype: int
   default: -1
 
-- id: debug_port
-  label: Debug port
+- id: debug_ports
+  label: Debug ports
   dtype: bool
   options: [False, True]
   option_labels: [OFF, ON]
@@ -70,10 +70,21 @@ inputs:
   vlen: 1
 
 outputs:
-- label: out
+- label: ca symbols
   dtype: fc64
   vlen: 1
-  multiplicity: ${1 if (debug_port == False) else 2}
+
+- label: f
+  dtype: f64
+  vlen: 1
+  optional: true
+  hide: ${ debug_ports == False }
+
+- label: code rate
+  dtype: f64
+  vlen: 1
+  optional: true
+  hide: ${ debug_ports == False }
 
 #  'file_format' specifies the version of the GRC yml format used in the file
 #  and should usually not be changed.
