@@ -127,24 +127,24 @@ namespace gr {
       gr::thread::scoped_lock lock(d_setlock);
 
       if (d_sv_clock_parameters == nullptr) {
-        // we do not have clock parameters (subframe1) for this satelite
+        // we do not have clock parameters (subframe1) for this satellite
         consume_each(noutput_items * DECIMATION_FACTOR);
         return 0;
       }
 
       if (d_ephemeris == nullptr) {
-        // we do not have ephemeris data (subframe2 and subframe3) for this satelite
+        // we do not have ephemeris data (subframe2 and subframe3) for this satellite
         consume_each(noutput_items * DECIMATION_FACTOR);
         return 0;
       }
 
-      pvt_utils::satelite satelite;
+      pvt_utils::satellite satellite;
       while (nproduced < noutput_items) {
         double tx_time = iptr0[nproduced * DECIMATION_FACTOR].get({1}, {});
-        d_ephemeris->get_vectors(tx_time, &satelite.position, &satelite.velocity, NULL);
+        d_ephemeris->get_vectors(tx_time, &satellite.position, &satellite.velocity, NULL);
 
-        optr0[nproduced] = satelite.position;
-        optr1[nproduced] = satelite.velocity;
+        optr0[nproduced] = satellite.position;
+        optr1[nproduced] = satellite.velocity;
         optr2[nproduced] = tx_time;
         add_item_tag(0, nitems_written(0) + nproduced, pmt::mp(TAG_TX_TIME), pmt::mp(tx_time), alias_pmt());
 

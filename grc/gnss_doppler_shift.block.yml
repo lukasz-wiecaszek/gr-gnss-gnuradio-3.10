@@ -46,7 +46,7 @@ parameters:
 #      * vlen (optional - data stream vector length. Default is 1)
 #      * optional (optional - set to 1 for optional inputs. Default is 0)
 inputs:
-- label: satelite
+- label: satellite
   dtype: f64
   vlen: 3
   optional: ${receiver_port}

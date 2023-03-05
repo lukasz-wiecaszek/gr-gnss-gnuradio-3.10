@@ -68,7 +68,7 @@ namespace gr {
         get_tags_in_range(pseudorange_tags[n], n, nitems_read(n), nitems_read(n) + noutput_items, pmt::mp(TAG_PSEUDORANGE));
 
       while (nproduced < noutput_items) {
-        pvt_utils::satelite satelites[N];
+        pvt_utils::satellite satellites[N];
         for (n = 0; n < N; ++n) {
           const ITYPE* iptr = static_cast<const ITYPE*>(input_items[n]);
           const std::vector<tag_t>& tags = pseudorange_tags[n];
@@ -77,8 +77,8 @@ namespace gr {
           if (pseudorange == 0)
             break; // we do not have valid pseudorange for this input port yet
 
-          satelites[n].pseudorange = pmt::to_double(pseudorange_tags[n][nproduced].value);
-          satelites[n].position = iptr[nproduced];
+          satellites[n].pseudorange = pmt::to_double(pseudorange_tags[n][nproduced].value);
+          satellites[n].position = iptr[nproduced];
         }
 
         consume_each(1);
@@ -92,7 +92,7 @@ namespace gr {
         } else {
           vector3d efec_user_position;
 
-#define CASE(x) case x: pvt_utils::get<x>(satelites, d_hint, &efec_user_position, NULL, NULL)
+#define CASE(x) case x: pvt_utils::get<x>(satellites, d_hint, &efec_user_position, NULL, NULL)
           switch (N) {
             CASE(4); break;
             CASE(5); break;

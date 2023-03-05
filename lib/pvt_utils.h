@@ -31,13 +31,13 @@ namespace gr {
   namespace gnss {
     namespace pvt_utils {
 
-      struct satelite
+      struct satellite
       {
-        vector3d position; // satelite position
-        vector3d velocity; // satelite velocity
+        vector3d position; // satellite position
+        vector3d velocity; // satellite velocity
         double pseudorange; // associated pseudorange measurement
 
-        satelite() :
+        satellite() :
           position{{0.0, 0.0, 0.0}},
           velocity{{0.0, 0.0, 0.0}},
           pseudorange{0.0}
@@ -92,7 +92,7 @@ namespace gr {
 
       template<int N>
       inline
-      int get(const satelite* s, user& hint, vector3d* position, vector3d* velocity, double* t)
+      int get(const satellite* s, user& hint, vector3d* position, vector3d* velocity, double* t)
       {
         constexpr int M = 4;
         lts::tensor<double, lts::dimensions<N>, lts::dimensions<M>> H1;
@@ -147,7 +147,7 @@ namespace gr {
 
       template<> // this is specialization when N == 4
       inline
-      int get<4>(const satelite* s, user& hint, vector3d* position, vector3d* velocity, double* t)
+      int get<4>(const satellite* s, user& hint, vector3d* position, vector3d* velocity, double* t)
       {
         constexpr int N = 4;
         constexpr int M = 4;
@@ -196,14 +196,14 @@ namespace gr {
 
       template<std::size_t N>
       inline
-      int get(const satelite (&s)[N], user& hint, vector3d* position, vector3d* velocity, double* t)
+      int get(const satellite (&s)[N], user& hint, vector3d* position, vector3d* velocity, double* t)
       {
         return get<N>(s, hint, position, velocity, t);
       }
 
       template<std::size_t N>
       inline
-      int get(const std::array<satelite, N>& s, user& hint, vector3d* position, vector3d* velocity, double* t)
+      int get(const std::array<satellite, N>& s, user& hint, vector3d* position, vector3d* velocity, double* t)
       {
         return get<N>(s, hint, position, velocity, t);
       }

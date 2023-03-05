@@ -49,7 +49,7 @@ namespace gr {
       double get_tx_time(const int n, double rx_time);
 
       bool d_add_velocity_outputs;
-      std::array<std::tuple<navigation_system_e, int>, MAX_STREAMS> d_satelite_ids;
+      std::array<std::tuple<navigation_system_e, int>, MAX_STREAMS> d_satellite_ids;
       std::array<lts::flatbuffer<vector3d>, MAX_STREAMS> d_flatbuffers;
       std::map<int, std::shared_ptr<sv_clock_parameters>> d_sv_clock_parameters;
       std::map<int, std::shared_ptr<ephemeris>> d_ephemerides;

@@ -37,7 +37,7 @@ namespace gr {
                   gr::io_signature::make(1, MAX_STREAMS, sizeof(ITYPE) * IVLEN),
                   gr::io_signature::make(1, MAX_STREAMS * (add_velocity_outputs ? 2 : 1), sizeof(OTYPE) * OVLEN)),
         d_add_velocity_outputs{add_velocity_outputs},
-        d_satelite_ids(),
+        d_satellite_ids(),
         d_flatbuffers(),
         d_sv_clock_parameters{},
         d_ephemerides{}
@@ -46,7 +46,7 @@ namespace gr {
       set_tag_propagation_policy(TPP_DONT);
 
       for (int i = 0; i < MAX_STREAMS; ++i) {
-        d_satelite_ids[i] = {NAVIGATION_SYSTEM_UNDEFINED, -1};
+        d_satellite_ids[i] = {NAVIGATION_SYSTEM_UNDEFINED, -1};
         d_flatbuffers[i] = std::move(lts::flatbuffer<vector3d>{2000});
       }
 
@@ -91,15 +91,15 @@ namespace gr {
     pseudoranges_decoder_impl<ITYPE, OTYPE>::set_acq_params(int port, navigation_system_e system, int id)
     {
       gr::thread::scoped_lock lock(d_setlock);
-      d_satelite_ids[port] = {system, id};
+      d_satellite_ids[port] = {system, id};
     }
 
     template<typename ITYPE, typename OTYPE>
     void
     pseudoranges_decoder_impl<ITYPE, OTYPE>::get_acq_params(int port, navigation_system_e& system, int& id) const
     {
-      system = std::get<0>(d_satelite_ids[port]);
-      id = std::get<1>(d_satelite_ids[port]);
+      system = std::get<0>(d_satellite_ids[port]);
+      id = std::get<1>(d_satellite_ids[port]);
     }
 
     template<typename ITYPE, typename OTYPE>
@@ -162,16 +162,16 @@ namespace gr {
         for (n = 0; n < N; ++n)
           d_flatbuffers[n].consume(std::min(d_flatbuffers[n].read_available(), static_cast<std::size_t>(DECIMATION_FACTOR)));
 
-        pvt_utils::satelite satelites[N];
+        pvt_utils::satellite satellites[N];
         for (n = 0; n < N; ++n) {
-          int svid = std::get<1>(d_satelite_ids[n]);
+          int svid = std::get<1>(d_satellite_ids[n]);
           if (svid >= 0) {
             const std::shared_ptr<sv_clock_parameters> c = d_sv_clock_parameters[svid];
-            if (c == nullptr) // we do not have clock parameters (subframe1) for this satelite
+            if (c == nullptr) // we do not have clock parameters (subframe1) for this satellite
               continue;
 
             const std::shared_ptr<ephemeris> e = d_ephemerides[svid];
-            if (e == nullptr) // we do not have ephemeris data (subframe2 and subframe3) for this satelite
+            if (e == nullptr) // we do not have ephemeris data (subframe2 and subframe3) for this satellite
               continue;
 
             double tx_time = tx_times[n];
@@ -180,23 +180,23 @@ namespace gr {
             double dt = dt1 + dt2;
             tx_time -= dt;
 
-            satelites[n].pseudorange = (rx_time - tx_time) * C;
+            satellites[n].pseudorange = (rx_time - tx_time) * C;
             if (d_add_velocity_outputs)
-              e->get_vectors(tx_time, &satelites[n].position, &satelites[n].velocity, NULL);
+              e->get_vectors(tx_time, &satellites[n].position, &satellites[n].velocity, NULL);
             else
-              e->get_vectors(tx_time, &satelites[n].position, NULL, NULL);
+              e->get_vectors(tx_time, &satellites[n].position, NULL, NULL);
           }
         }
 
         OTYPE* optr;
         for (n = 0; n < N; ++n) {
           optr = static_cast<OTYPE*>(output_items[n]);
-          optr[nproduced] = satelites[n].position;
+          optr[nproduced] = satellites[n].position;
           if (d_add_velocity_outputs) {
             optr = static_cast<OTYPE*>(output_items[N + n]);
-            optr[nproduced] = satelites[n].velocity;
+            optr[nproduced] = satellites[n].velocity;
           }
-          add_item_tag(n, nitems_written(n) + nproduced, pmt::mp(TAG_PSEUDORANGE), pmt::mp(satelites[n].pseudorange), alias_pmt());
+          add_item_tag(n, nitems_written(n) + nproduced, pmt::mp(TAG_PSEUDORANGE), pmt::mp(satellites[n].pseudorange), alias_pmt());
           add_item_tag(n, nitems_written(n) + nproduced, pmt::mp(TAG_RX_TIME), pmt::mp(rx_time), alias_pmt());
         }
 
