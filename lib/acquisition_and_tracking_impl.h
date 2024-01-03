@@ -115,11 +115,12 @@ namespace gr {
       doppler_shifts<doppler_bins> d_doppler_shifts;
       std::vector<float> d_magnitude;
       magnitude_stats<float> d_max_magnitude_stats;
+      int d_positive_acquisition_cnt;
       double d_code_chip_rate;
       double d_code_offset_chips;
       double d_code_offset_samples;
       double d_freq;
-      double d_freq_offset;
+      double d_freq_phase_offset;
       dll_loop_filter<1> d_dll_loop_filter;
       pll_loop_filter<2> d_pll_loop_filter;
       ringbuffer<double, GPS_CA_CODES_PER_NAV_MESSAGE_BIT> d_tracking_history;

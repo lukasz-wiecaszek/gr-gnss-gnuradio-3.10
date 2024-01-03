@@ -54,11 +54,12 @@ namespace gr {
         d_doppler_shifts{sampling_freq, -doppler_df * doppler_ssb_bins, doppler_df, d_spreading_code_samples},
         d_magnitude(d_spreading_code_samples),
         d_max_magnitude_stats{},
+        d_positive_acquisition_cnt{0},
         d_code_chip_rate{GPS_CA_CODE_CHIP_RATE},
         d_code_offset_chips{0.0},
         d_code_offset_samples{0.0},
         d_freq{0.0},
-        d_freq_offset{0.0},
+        d_freq_phase_offset{0.0},
         d_dll_loop_filter{1.0 / GPS_CA_CODE_RATE},
         d_pll_loop_filter{1.0 / GPS_CA_CODE_RATE},
         d_tracking_history{}
@@ -198,28 +199,51 @@ namespace gr {
       }
 
       if (d_max_magnitude_stats.d_max > (d_max_magnitude_stats.d_avg * 2)) { // this needs to be reworked
-        printf("svid %02d: (positive acquisition) - doppler shift f: %.1f Hz [%s]\n",
-          d_id, d_doppler_shifts.n_to_freq(d_max_magnitude_stats.d_freq_index), d_max_magnitude_stats.to_string().c_str());
 
-        d_code_chip_rate = GPS_CA_CODE_CHIP_RATE;
-        d_code_offset_chips = 0.0;
-        d_code_offset_samples = 0.0;
-        d_freq = d_doppler_shifts.n_to_freq(d_max_magnitude_stats.d_freq_index);
-        d_freq_offset = 0.0;
-        d_tracking_history.reset();
-        d_dll_loop_filter.reset(0.0, d_dll_bw_coarse);
-        d_pll_loop_filter.reset(d_freq, d_pll_bw_coarse);
+        if (d_positive_acquisition_cnt == 0) {
+          d_freq = d_doppler_shifts.n_to_freq(d_max_magnitude_stats.d_freq_index);
+          d_positive_acquisition_cnt++;
+        }
+        else {
+          if (d_freq == d_doppler_shifts.n_to_freq(d_max_magnitude_stats.d_freq_index)) {
+            d_positive_acquisition_cnt++;
+          }
+          else {
+            d_freq = d_doppler_shifts.n_to_freq(d_max_magnitude_stats.d_freq_index);
+            d_positive_acquisition_cnt = 0;
+          }
+        }
 
-        printf("svid %02d: switching to 'coarse tracking' state\n", d_id);
-        d_state = state_e::TRACKING_COARSE;
+        printf("svid %02d: (positive acquisition [%d]) - doppler shift f: %.1f Hz [%s]\n",
+          d_id, d_positive_acquisition_cnt,
+          d_doppler_shifts.n_to_freq(d_max_magnitude_stats.d_freq_index),
+          d_max_magnitude_stats.to_string().c_str());
 
-        // Tell runtime system how many input items we consumed on
-        // each input stream.
-        consume_each(d_max_magnitude_stats.d_max_index);
+        if (d_positive_acquisition_cnt >= 1) {
+          d_positive_acquisition_cnt = 0;
+          d_code_chip_rate = GPS_CA_CODE_CHIP_RATE;
+          d_code_offset_chips = 0.0;
+          d_code_offset_samples = 0.0;
+          d_freq_phase_offset = 0.0;
+          d_tracking_history.reset();
+          d_dll_loop_filter.reset(0.0, d_dll_bw_coarse);
+          d_pll_loop_filter.reset(d_freq, d_pll_bw_coarse);
+
+          printf("svid %02d: switching to 'coarse tracking' state\n", d_id);
+          d_state = state_e::TRACKING_COARSE;
+
+          // Tell runtime system how many input items we consumed on
+          // each input stream.
+          consume_each(d_max_magnitude_stats.d_max_index);
+        }
+        else {
+          consume_each(d_spreading_code_samples);
+        }
       }
       else {
         printf("svid %02d: (negative acquisition) - switching to unlocked state\n", d_id);
 
+        d_positive_acquisition_cnt = 0;
         d_state = state_e::UNLOCKED;
 
         // Tell runtime system how many input items we consumed on
@@ -261,9 +285,9 @@ namespace gr {
       std::vector<gr_complex> input_stream(d_spreading_code_samples);
 
       nco.set_freq(-2.0 * GR_M_PI * d_freq / d_sampling_freq);
-      nco.set_phase(d_freq_offset);
-      nco.sincos(doppler_shift.data(), doppler_shift.size(), 1);
-      d_freq_offset = nco.get_phase();
+      nco.set_phase(d_freq_phase_offset);
+      nco.sincos(doppler_shift.data(), doppler_shift.size(), 1.0);
+      d_freq_phase_offset = nco.get_phase();
 
       volk_32fc_x2_multiply_32fc(input_stream.data(), iptr0, doppler_shift.data(), d_spreading_code_samples);
 
@@ -285,6 +309,7 @@ namespace gr {
 
         // Multiply and then integrate doppler shifted incoming signal with the spreading code
         correlations[tap] = std::inner_product(output_stream.begin(), output_stream.end(), spreading_code.begin(), gr_complexd{0.0, 0.0});
+        correlations[tap] /= d_spreading_code_samples;
       }
 
       gr_complexd E = correlations[0];
@@ -298,6 +323,7 @@ namespace gr {
       double dll_discriminator_filtered = d_dll_loop_filter[dll_discriminator * (1.0 + correlation_shifts[0])];
 
       double pll_discriminator = pll_discriminator_two_quadrant_arctangent(P);
+
       double pll_discriminator_filtered = d_pll_loop_filter[pll_discriminator / (2.0 * GR_M_PI)];
       d_freq = pll_discriminator_filtered;
 
@@ -318,21 +344,22 @@ namespace gr {
 #if 0
       {
         static int cnt = 0;
-        if ((cnt++ % 500) == 0) {
-          printf("svid %02d: E: %e P: %e L: %e pll [%e %e] dll [%e %e] %e %e %e\n",
+        if (cnt < 100) {
+          printf("svid %02d: E: %e P: %e L: %e [%e, %e] pll [%e %e] dll [%e %e] %e %e %e\n",
             d_id,
-            std::norm(E), std::norm(P), std::norm(L),
+            std::norm(E), std::norm(P), std::norm(L), P.real(), P.imag(),
             pll_discriminator, pll_discriminator_filtered,
             dll_discriminator, dll_discriminator_filtered,
             d_code_chip_rate, d_code_offset_chips, d_code_offset_samples);
         }
+        cnt++;
       }
 #endif
 
       if (d_tracking_history.n > GPS_CA_CODE_RATE /* 1 second */) {
         double pll_discriminator_avg = d_tracking_history.avg();
         if (d_state == state_e::TRACKING_COARSE) {
-          if (pll_discriminator_avg < 0.1) {
+          if (pll_discriminator_avg < (GR_M_PI / 64.0)) {
             printf("svid %02d: switching to 'fine tracking' state\n", d_id);
             d_tracking_history.reset();
             d_dll_loop_filter.update_coefficients(d_dll_bw_fine);
@@ -340,7 +367,7 @@ namespace gr {
             d_state = state_e::TRACKING_FINE;
           }
           else
-          if (pll_discriminator_avg > 0.5) {
+          if (pll_discriminator_avg > (GR_M_PI / 4.0)) {
             printf("svid %02d: switching to 'acquisition' state\n", d_id);
             d_state = state_e::ACQUISITION;
           }
@@ -350,7 +377,7 @@ namespace gr {
         }
         else
         if (d_state == state_e::TRACKING_FINE) {
-          if (pll_discriminator_avg > 0.25) {
+          if (pll_discriminator_avg > (GR_M_PI / 16.0)) {
             printf("svid %02d: switching to 'coarse tracking' state\n", d_id);
             d_tracking_history.reset();
             d_dll_loop_filter.update_coefficients(d_dll_bw_coarse);
