@@ -86,11 +86,9 @@ namespace gr {
           ITYPE el = r / abs(r);
 
           double v_longitudinal = lts::transpose(v) * el;
-          double df = GPS_L1_FREQ_HZ * (1.0 - std::sqrt((C - v_longitudinal) / (C + v_longitudinal)));
+          double df = GPS_L1_FREQ_HZ * (std::sqrt((C - v_longitudinal) / (C + v_longitudinal)) - 1.0);
 
-          //printf("r: %s\n", to_string(r).c_str());
-          //printf("dr: %s, dt: %.15e\n", to_string(dr).c_str(), dt);
-          //printf("v: %s, v_radial: %.15e, df: %.15e\n", to_string(v).c_str(), v_radial, df);
+          //printf("r: %s, v: %s, vl: %.15e\n", to_string(r).c_str(), to_string(v).c_str(), v_longitudinal);
 
           optr0[nproduced++] = df;
         }

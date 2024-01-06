@@ -280,6 +280,8 @@ namespace gr {
           // This is a situation when we cross gsp week boundary
           tx_time = tx_time_0 + (tx_time_1 + GPS_SECONDS_PER_WEEK - tx_time_0) * dt;
 
+        // printf("%d: %+.15e -> %+.15e\n", n, rx_time, tx_time);
+
       } else {
         tx_time = std::numeric_limits<double>::infinity();
       }

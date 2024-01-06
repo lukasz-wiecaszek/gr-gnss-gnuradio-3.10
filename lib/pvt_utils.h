@@ -182,8 +182,57 @@ namespace gr {
                  std::abs(ds.get({2}, {})) > 1.0 ||
                  std::abs(ds.get({3}, {})) > 1.0);
 
+        /*
+        There is too big simplification (or I shall call it error, without beating around the bush)
+        in the above computation of user position.
+        The correct algorithm shall be.
+        1. Once satellite's positions are calculated, we shall select an arbitrary inertial frame for
+           computation of path delays. The reason for that is, that satellite's positions
+           are available in the EFEC frame which is slightly different for each of the satellites
+           as each of them has slightly different transmission time
+           (we are assuming "time tagging at the receiver" approach).
+        2. We shall transform the EFEC coordinates of each of the satellites into the chosen inertial frame.
+           If we freeze the EFEC frame at the transmission time of one of the satellites and this
+           will be our inertial frame, then we are saved with one transformation.
+           This is the approach I am going to apply later on in this implementation.
+           I may skip this step for a while as the error introduced by not doing this procedure
+           is not so big as error introduced by not doing procedure (4).
+           The time difference between the earliest and the latest transmission
+           in time tagging at the receiver approach is about 6 ms.
+            +3.686154041043728e+05
+            +3.686154000000000e+05
+            +3.686154057984319e+05
+            +3.686154021735514e+05
+        3. Now we may solve the path delay equations for the receiver's position and time.
+           The result will be given in the previously selected inertial frame.
+        4. Finally we shall rotate the user's position again to EFEC frame.
+
+        In the current implementataion I am still solving the equations in the EFEC frame
+        (or I shall write in so many EFEC frames as used satellites) at time
+        which "approximately" corresponds to transmission time.
+        And the easiest way to correct this implementation a little is to rotate
+        the user position by the "time" it takes for signal to travel from satellite to the Earth.
+        Let's do it all approximately (which is still better than not doing it at all).
+        So, the avarage distance from GPS satellite to the Earth is about 20200 km. It gives ~67 ms
+        for an EM wave to travel that distance. And the rotation matrix is
+        [ cos(fi) -sin(fi) 0 ]
+        [ sin(fi)  cos(fi) 0 ]
+        [ 0        0       1 ]
+        where fi = -WGS84_OMEGA * delta t = 7.292115e-05 rad/s * 0.067 s = -4.88571e-06 rad
+        */
+
+        /* As mentioned above this is temporary solution */
+        static const double dt = 0.067;
+        static const double fi = -WGS84_OMEGA * dt;
+
+        static const lts::tensor<double, lts::dimensions<3>, lts::dimensions<3>> R{{
+          std::cos(fi), -std::sin(fi), 0.0,
+          std::sin(fi),  std::cos(fi), 0.0,
+          0.0,           0.0,          1.0
+        }};
+
         if (position)
-          *position = hint.position;
+          *position = R * hint.position;
 
         if (velocity)
           ;// not supported yet
